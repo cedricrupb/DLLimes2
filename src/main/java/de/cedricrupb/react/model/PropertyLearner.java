@@ -1,0 +1,197 @@
+package de.cedricrupb.react.model;
+
+import de.cedricrupb.config.model.Example;
+import de.cedricrupb.config.model.NegativeReference;
+import de.cedricrupb.config.model.PositiveReference;
+import de.cedricrupb.config.model.Reference;
+import de.cedricrupb.utils.*;
+import org.aksw.limes.core.io.cache.Instance;
+import org.aksw.limes.core.io.config.KBInfo;
+import org.aksw.limes.core.measures.measure.IMeasure;
+import org.aksw.limes.core.measures.measure.MeasureFactory;
+import org.aksw.limes.core.measures.measure.MeasureType;
+import org.apache.jena.query.QuerySolution;
+import org.apache.jena.rdf.model.RDFNode;
+import org.apache.jena.rdf.model.Resource;
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLIndividual;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import uk.ac.manchester.cs.owl.owlapi.OWLNamedIndividualImpl;
+
+import java.util.*;
+
+public class PropertyLearner implements Runnable {
+
+    static Logger logger = LoggerFactory.getLogger(ClassLearner.class.getName());
+
+    private KBInfo srcInfo;
+    private KBInfo targetInfo;
+    private Set<Reference> mapping;
+    private double epsilon;
+
+    private Set<String> srcProperties;
+    private Set<String> targetProperties;
+
+    public PropertyLearner(KBInfo srcInfo, KBInfo targetInfo, Set<Reference> mapping, double epsilon) {
+        this.srcInfo = srcInfo;
+        this.targetInfo = targetInfo;
+        this.mapping = mapping;
+        this.epsilon = epsilon;
+    }
+
+    @Override
+    public void run() {
+        Set<PositiveReference> pos = new HashSet<>();
+        Set<NegativeReference> neg = new HashSet<>();
+
+        for(Reference r: mapping){
+            if(r instanceof PositiveReference)
+                pos.add((PositiveReference)r);
+            if(r instanceof NegativeReference)
+                neg.add((NegativeReference)r);
+        }
+
+        ISimilaritySet posTestSet = buildTestSet(pos, srcInfo.getProperties(), targetInfo.getProperties());
+        ISimilaritySet negTestSet = buildTestSet(neg, srcInfo.getProperties(), targetInfo.getProperties());
+
+        Map<IMeasure, Double> measures = initMeasureMap();
+
+        Set<String> srcOut = new HashSet<>();
+        Set<String> targetOut = new HashSet<>();
+
+
+        for(Map.Entry<IMeasure, Double> measure: measures.entrySet()) {
+            for (String src : srcInfo.getProperties()) {
+                if (srcOut.contains(src)) continue;
+
+                for (String tar : targetInfo.getProperties()) {
+                    if (targetOut.contains(tar)) continue;
+
+                    int posScore = posTestSet.score(src, tar, measure.getKey(), measure.getValue());
+                    int negScore = negTestSet.score(src, tar, measure.getKey(), measure.getValue());
+
+                    double f = fmeasure(posScore, neg.size() - negScore, pos.size());
+
+                    if (f >= epsilon) {
+                        logger.info("Applicable property:\nSource: " + src + "\n Target:" + tar);
+                        srcOut.add(src);
+                        targetOut.add(tar);
+                        break;
+                    }
+
+                }
+            }
+        }
+
+        srcProperties = srcOut;
+        targetProperties = targetOut;
+
+    }
+
+    public Set<String> getSrcProperties() {
+        return srcProperties;
+    }
+
+    public Set<String> getTargetProperties() {
+        return targetProperties;
+    }
+
+
+    private double fmeasure(int posScore, int negScore, int allPos){
+
+        if(posScore == 0)return 0.0;
+
+        double precision = (double)posScore / (posScore + negScore);
+        double recall = (double)posScore / allPos;
+
+        return 2 * (precision * recall) / (precision + recall);
+    }
+
+    private Map<IMeasure, Double> initMeasureMap(){
+        Map<IMeasure, Double> map = new HashMap<>();
+
+        map.put(MeasureFactory.createMeasure(MeasureType.JACCARD), 0.6);
+        map.put(MeasureFactory.createMeasure(MeasureType.LEVENSHTEIN), 0.7);
+
+        return map;
+    }
+
+    private ISimilaritySet buildTestSet(Set<? extends Reference> list, List<String> srcProp, List<String> targetProp){
+        List<OWLIndividual> srcI = new ArrayList<>();
+        List<OWLIndividual> tarI = new ArrayList<>();
+
+        for(Reference r: list){
+            srcI.add(fromSrcExample(r.getSource()));
+            tarI.add(fromTargetExample(r.getTarget()));
+        }
+
+        Map<String, Instance> src = createInstances(srcInfo, srcI, srcProp);
+        Map<String, Instance> tar = createInstances(targetInfo, tarI, targetProp);
+
+        Map<String, String> prefixes = new HashMap<>(srcInfo.getPrefixes());
+        prefixes.putAll(targetInfo.getPrefixes());
+
+        return new SimpleSimilaritySet(prefixes, list, src, tar);
+    }
+
+    private Map<String, Instance> createInstances(KBInfo kb, List<OWLIndividual> ind, List<String> prop){
+
+        Map<String, Instance> map = new HashMap<>();
+
+        for(OWLIndividual i: ind){
+            map.put(i.toStringID(), new Instance(i.toStringID()));
+        }
+
+        List<String> keys = new ArrayList<>();
+
+        for(String e: map.keySet()){
+            keys.add(PrefixHelper.revertSinglePrefix(e, kb.getPrefixes()));
+        }
+
+        LazyQueryFactory factory = new LazyQueryFactory();
+
+        String query = EndPointHelper.genPropertyQuery("?x", "?prop", "?z",  keys, new HashSet<>(prop));
+        query = EndPointHelper.addPrefix(kb, query);
+
+        try {
+            for (QuerySolution sol : factory.create(kb, query)) {
+                Resource inst = sol.getResource("?x");
+
+                Instance instance = map.get(inst.getURI());
+
+                if(instance == null)continue;
+
+                Resource property = sol.getResource("?prop");
+                RDFNode node = sol.get("?z");
+
+                instance.addProperty(property.getURI(),
+                                     node.toString());
+
+
+
+            }
+        }finally{
+            factory.close();
+        }
+
+        return map;
+    }
+
+    private OWLIndividual fromSrcExample(Example example){
+        return new OWLNamedIndividualImpl(
+                IRI.create(
+                    PrefixHelper.resolveSinglePrefix(example.getUri(), srcInfo.getPrefixes())
+                )
+        );
+    }
+
+    private OWLIndividual fromTargetExample(Example example){
+        return new OWLNamedIndividualImpl(
+                IRI.create(
+                        PrefixHelper.resolveSinglePrefix(example.getUri(), targetInfo.getPrefixes())
+                )
+        );
+    }
+
+}

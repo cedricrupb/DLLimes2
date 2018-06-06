@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<DLLIMES>
+    <PREFIX>
+        <NAMESPACE>father</NAMESPACE>
+        <LABEL>http://example.com/father#</LABEL>
+    </PREFIX>
+    <PREFIX>
+        <NAMESPACE>rdf</NAMESPACE>
+        <LABEL>http://www.w3.org/1999/02/22-rdf-syntax-ns#</LABEL>
+    </PREFIX>
+    <PREFIX>
+        <NAMESPACE>rdfs</NAMESPACE>
+        <LABEL>http://www.w3.org/2000/01/rdf-schema#</LABEL>
+    </PREFIX>
+    <PREFIX>
+        <NAMESPACE>http</NAMESPACE>
+        <LABEL>http</LABEL>
+    </PREFIX>
+    <PREFIX>
+        <NAMESPACE>dbo</NAMESPACE>
+        <LABEL>http://dbpedia.org/ontology/</LABEL>
+    </PREFIX>
+    <PREFIX>
+        <NAMESPACE>dbr</NAMESPACE>
+        <LABEL>http://dbpedia.org/resource/</LABEL>
+    </PREFIX>
+    <PREFIX>
+        <NAMESPACE>dbw</NAMESPACE>
+        <LABEL>http://wikidata.dbpedia.org/resource/</LABEL>
+    </PREFIX>
+
+
+    <SOURCE>
+        <ID>dbp</ID>
+        <ENDPOINT>http://dbpedia.org/sparql</ENDPOINT>
+        <VAR>?x</VAR>
+        <PAGESIZE>2000</PAGESIZE>
+        <TYPE>sparql</TYPE>
+    </SOURCE>
+    <TARGET>
+        <ID>dbw</ID>
+        <ENDPOINT>http://wikidata.dbpedia.org/sparql</ENDPOINT>
+        <VAR>?y</VAR>
+        <PAGESIZE>2000</PAGESIZE>
+        <TYPE>sparql</TYPE>
+    </TARGET>
+
+    <MAPPING>
+        <POSITIVE>
+            <SOURCE>dbr:Andreas_Ekberg</SOURCE>
+            <TARGET>dbw:Andreas_Ekberg</TARGET>
+        </POSITIVE>
+        <POSITIVE>
+            <SOURCE>dbr:Danilo_Tognon</SOURCE>
+            <TARGET>dbw:Danilo_Tognon</TARGET>
+        </POSITIVE>
+        <POSITIVE>
+            <SOURCE>dbr:Megan_Lawrence</SOURCE>
+            <TARGET>dbw:Megan_Lawrence</TARGET>
+        </POSITIVE>
+        <POSITIVE>
+            <SOURCE>dbr:Peter_Ceffons</SOURCE>
+            <TARGET>dbw:Peter_Ceffons</TARGET>
+        </POSITIVE>
+        <POSITIVE>
+            <SOURCE>dbr:Antonio_Bova</SOURCE>
+            <TARGET>dbw:Antonio_Bova</TARGET>
+        </POSITIVE>
+        <POSITIVE>
+            <SOURCE>dbr:Barry_James</SOURCE>
+            <TARGET>dbw:Barry_James</TARGET>
+        </POSITIVE>
+        <NEGATIVE>
+            <SOURCE>dbr:Andreas_Ekberg</SOURCE>
+            <TARGET>dbw:Megan_Lawrence</TARGET>
+        </NEGATIVE>
+        <NEGATIVE>
+            <SOURCE>dbr:Andreas_Ekberg</SOURCE>
+            <TARGET>dbw:Peter_Ceffons</TARGET>
+        </NEGATIVE>
+        <NEGATIVE>
+            <SOURCE>dbr:Andreas_Ekberg</SOURCE>
+            <TARGET>dbw:Antonio_Bova</TARGET>
+        </NEGATIVE>
+        <NEGATIVE>
+            <SOURCE>dbr:Antonio_Bova</SOURCE>
+            <TARGET>dbw:Megan_Lawrence</TARGET>
+        </NEGATIVE>
+        <NEGATIVE>
+            <SOURCE>dbr:Daryl_Homer</SOURCE>
+            <TARGET>dbw:Barry_James</TARGET>
+        </NEGATIVE>
+    </MAPPING>
+
+    <MLALGORITHM>
+        <NAME>wombat simple</NAME>
+        <THRESHOLD>0.9</THRESHOLD>
+        <TYPE>unsupervised</TYPE>
+        <PARAMETER>
+            <NAME>max execution time in minutes</NAME>
+            <VALUE>5</VALUE>
+        </PARAMETER>
+        <PARAMETER>
+            <NAME>property_min_f_score</NAME>
+            <VALUE>0.6</VALUE>
+        </PARAMETER>
+        <PARAMETER>
+            <NAME>property_min_coverage</NAME>
+            <VALUE>0.6</VALUE>
+        </PARAMETER>
+    </MLALGORITHM>
+
+
+    <TERMINATE>
+        <ITERATION>2</ITERATION>
+        <FIXPOINT>TRUE</FIXPOINT>
+        <FILE>/Users/cedricrichter/Documents/DL-LIMES/DLLimes/src/main/resources/config/same_person.nt</FILE>
+    </TERMINATE>
+</DLLIMES>

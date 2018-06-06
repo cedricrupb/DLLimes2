@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<DLLIMES>
+    <PREFIX>
+        <NAMESPACE>father</NAMESPACE>
+        <LABEL>http://example.com/father#</LABEL>
+    </PREFIX>
+    <PREFIX>
+        <NAMESPACE>rdf</NAMESPACE>
+        <LABEL>http://www.w3.org/1999/02/22-rdf-syntax-ns#</LABEL>
+    </PREFIX>
+    <PREFIX>
+        <NAMESPACE>rdfs</NAMESPACE>
+        <LABEL>http://www.w3.org/2000/01/rdf-schema#</LABEL>
+    </PREFIX>
+
+
+    <SOURCE>
+        <ID>father</ID>
+        <ENDPOINT>/Users/cedricrichter/IdeaProjects/graphengine/src/main/resources/father.owl</ENDPOINT>
+        <VAR>?x</VAR>
+        <PAGESIZE>2000</PAGESIZE>
+        <TYPE>rdf/xml</TYPE>
+        <NEGATIVE-EXAMPLE>father:heinz</NEGATIVE-EXAMPLE>
+        <NEGATIVE-EXAMPLE>father:anna</NEGATIVE-EXAMPLE>
+    </SOURCE>
+    <TARGET>
+        <ID>father</ID>
+        <ENDPOINT>/Users/cedricrichter/IdeaProjects/graphengine/src/main/resources/father.owl</ENDPOINT>
+        <VAR>?y</VAR>
+        <PAGESIZE>2000</PAGESIZE>
+        <TYPE>rdf/xml</TYPE>
+        <NEGATIVE-EXAMPLE>father:heinz</NEGATIVE-EXAMPLE>
+        <NEGATIVE-EXAMPLE>father:anna</NEGATIVE-EXAMPLE>
+    </TARGET>
+
+    <MAPPING>
+        <POSITIVE>
+            <SOURCE>father:martin</SOURCE>
+            <TARGET>father:martin</TARGET>
+        </POSITIVE>
+        <NEGATIVE>
+            <SOURCE>father:heinz</SOURCE>
+            <TARGET>father:anna</TARGET>
+        </NEGATIVE>
+    </MAPPING>
+
+
+    <MLALGORITHM>
+        <NAME>wombat simple</NAME>
+        <THRESHOLD>0.9</THRESHOLD>
+        <TYPE>unsupervised</TYPE>
+        <PARAMETER>
+            <NAME>max execution time in minutes</NAME>
+            <VALUE>5</VALUE>
+        </PARAMETER>
+        <PARAMETER>
+            <NAME>property_min_f_score</NAME>
+            <VALUE>0.6</VALUE>
+        </PARAMETER>
+        <PARAMETER>
+            <NAME>property_min_coverage</NAME>
+            <VALUE>0.6</VALUE>
+        </PARAMETER>
+    </MLALGORITHM>
+
+
+    <TERMINATE>
+        <ITERATION>1</ITERATION>
+        <FIXPOINT>TRUE</FIXPOINT>
+        <FILE>/Users/cedricrichter/IdeaProjects/graphengine/src/main/resources/same_father.nt</FILE>
+    </TERMINATE>
+</DLLIMES>

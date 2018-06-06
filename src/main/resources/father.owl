@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<rdf:RDF
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+    xmlns="http://example.com/father#"
+    xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+    xmlns:owl="http://www.w3.org/2002/07/owl#"
+  xml:base="http://example.com/father">
+  <owl:Ontology rdf:about=""/>
+  <owl:Class rdf:ID="female"/>
+  <owl:Class rdf:ID="male">
+    <owl:equivalentClass>
+      <owl:Class>
+        <owl:complementOf rdf:resource="#female"/>
+      </owl:Class>
+    </owl:equivalentClass>
+  </owl:Class>
+  <owl:ObjectProperty rdf:ID="hasChild"/>
+  <male rdf:ID="markus" rdfs:label="markus">
+    <hasChild>
+      <female rdf:ID="anna" rdfs:label="anna">
+        <hasChild>
+          <male rdf:ID="heinz" rdfs:label="heinz"/>
+        </hasChild>
+      </female>
+    </hasChild>
+  </male>
+  <male rdf:ID="stefan" rdfs:label="stefan">
+    <hasChild rdf:resource="#markus"/>
+  </male>
+  <female rdf:ID="michelle" rdfs:label="michelle"/>
+  <male rdf:ID="martin" rdfs:label="martin">
+    <hasChild rdf:resource="#heinz"/>
+  </male>
+</rdf:RDF>
