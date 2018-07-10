@@ -1,14 +1,13 @@
-package de.cedricrupb.react.model;
+package de.cedricrupb.react.learner;
 
 import de.cedricrupb.config.model.Example;
 import de.cedricrupb.config.model.NegativeReference;
 import de.cedricrupb.config.model.PositiveReference;
 import de.cedricrupb.config.model.Reference;
 import de.cedricrupb.utils.*;
+import org.aksw.limes.core.io.cache.ACache;
 import org.aksw.limes.core.io.cache.Instance;
 import org.aksw.limes.core.io.config.KBInfo;
-import org.aksw.limes.core.measures.measure.IMeasure;
-import org.aksw.limes.core.measures.measure.MeasureFactory;
 import org.aksw.limes.core.measures.measure.MeasureType;
 import org.apache.jena.query.QuerySolution;
 import org.apache.jena.rdf.model.RDFNode;
@@ -52,24 +51,36 @@ public class PropertyLearner implements Runnable {
                 neg.add((NegativeReference)r);
         }
 
+        Set<String> currSrcPropeties = new HashSet<>(srcInfo.getProperties());
+        Set<String> currTarPropeties = new HashSet<>(targetInfo.getProperties());
+
+        logger.info("Build source test set");
         ISimilaritySet posTestSet = buildTestSet(pos, srcInfo.getProperties(), targetInfo.getProperties());
+
+        fixSet(currSrcPropeties, posTestSet.getSource());
+        fixSet(currTarPropeties, posTestSet.getTarget());
+
+        logger.info("Build target test set");
         ISimilaritySet negTestSet = buildTestSet(neg, srcInfo.getProperties(), targetInfo.getProperties());
 
-        Map<IMeasure, Double> measures = initMeasureMap();
+        fixSet(currSrcPropeties, negTestSet.getSource());
+        fixSet(currTarPropeties, negTestSet.getTarget());
+
+        List<Measure> measures = initMeasureMap();
 
         Set<String> srcOut = new HashSet<>();
         Set<String> targetOut = new HashSet<>();
 
 
-        for(Map.Entry<IMeasure, Double> measure: measures.entrySet()) {
-            for (String src : srcInfo.getProperties()) {
+        for(Measure measure: measures) {
+            for (String src : currSrcPropeties) {
                 if (srcOut.contains(src)) continue;
 
-                for (String tar : targetInfo.getProperties()) {
+                for (String tar : currTarPropeties) {
                     if (targetOut.contains(tar)) continue;
 
-                    int posScore = posTestSet.score(src, tar, measure.getKey(), measure.getValue());
-                    int negScore = negTestSet.score(src, tar, measure.getKey(), measure.getValue());
+                    int posScore = posTestSet.score(src, tar, measure.type, measure.name,  measure.threshold);
+                    int negScore = negTestSet.score(src, tar, measure.type, measure.name,  measure.threshold);
 
                     double f = fmeasure(posScore, neg.size() - negScore, pos.size());
 
@@ -98,6 +109,21 @@ public class PropertyLearner implements Runnable {
     }
 
 
+    private void fixSet(Set<String> properties, ACache cache){
+
+        if(cache.size() == 0)
+            return;
+
+        Set<String> props = cache.getAllProperties();
+        Set<String> comp = new HashSet<>();
+
+        for(String p: props)
+            comp.add(PrefixHelper.revertSinglePrefix(p, srcInfo.getPrefixes()));
+
+        properties.retainAll(comp);
+    }
+
+
     private double fmeasure(int posScore, int negScore, int allPos){
 
         if(posScore == 0)return 0.0;
@@ -108,13 +134,13 @@ public class PropertyLearner implements Runnable {
         return 2 * (precision * recall) / (precision + recall);
     }
 
-    private Map<IMeasure, Double> initMeasureMap(){
-        Map<IMeasure, Double> map = new HashMap<>();
+    private List<Measure> initMeasureMap(){
+        List<Measure> list = new ArrayList<>();
 
-        map.put(MeasureFactory.createMeasure(MeasureType.JACCARD), 0.6);
-        map.put(MeasureFactory.createMeasure(MeasureType.LEVENSHTEIN), 0.7);
+        list.add(new Measure("trigram", MeasureType.TRIGRAM, 0.6));
+        list.add(new Measure("levenshtein", MeasureType.LEVENSHTEIN, 0.7));
 
-        return map;
+        return list;
     }
 
     private ISimilaritySet buildTestSet(Set<? extends Reference> list, List<String> srcProp, List<String> targetProp){
@@ -146,13 +172,13 @@ public class PropertyLearner implements Runnable {
         List<String> keys = new ArrayList<>();
 
         for(String e: map.keySet()){
-            keys.add(PrefixHelper.revertSinglePrefix(e, kb.getPrefixes()));
+            keys.add(PrefixHelper.revertSinglePrefix(e, kb.getPrefixes(), true));
         }
 
         LazyQueryFactory factory = new LazyQueryFactory();
 
-        String query = EndPointHelper.genPropertyQuery("?x", "?prop", "?z",  keys, new HashSet<>(prop));
-        query = EndPointHelper.addPrefix(kb, query);
+        String query = EndPointHelper.instance().genPropertyQuery("?x", "?p", "?z",  keys, new HashSet<>(prop));
+        query = EndPointHelper.instance().addPrefix(kb, query);
 
         try {
             for (QuerySolution sol : factory.create(kb, query)) {
@@ -162,7 +188,9 @@ public class PropertyLearner implements Runnable {
 
                 if(instance == null)continue;
 
-                Resource property = sol.getResource("?prop");
+                logger.info("Loaded instance: "+instance.getUri());
+
+                Resource property = sol.getResource("?p");
                 RDFNode node = sol.get("?z");
 
                 instance.addProperty(property.getURI(),
@@ -192,6 +220,36 @@ public class PropertyLearner implements Runnable {
                         PrefixHelper.resolveSinglePrefix(example.getUri(), targetInfo.getPrefixes())
                 )
         );
+    }
+
+    private class Measure{
+
+        private String name;
+        private MeasureType type;
+
+        private double threshold;
+
+        public Measure(String name, MeasureType type, double threshold) {
+            this.name = name;
+            this.type = type;
+            this.threshold = threshold;
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+            Measure measure = (Measure) o;
+            return Double.compare(measure.threshold, threshold) == 0 &&
+                    Objects.equals(name, measure.name) &&
+                    type == measure.type;
+        }
+
+        @Override
+        public int hashCode() {
+
+            return Objects.hash(name, type, threshold);
+        }
     }
 
 }

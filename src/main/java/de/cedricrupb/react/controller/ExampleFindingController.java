@@ -8,15 +8,12 @@ import de.cedricrupb.event.config.MappingConfigEvent;
 import de.cedricrupb.event.learn.LimesMappingEvent;
 import de.cedricrupb.event.learn.MatchedPropertyEvent;
 import de.cedricrupb.event.learn.RestrictionEvent;
-import de.cedricrupb.react.model.ExampleFinder;
+import de.cedricrupb.react.learner.ExampleFinder;
 import de.cedricrupb.utils.AsyncJoiner;
 import de.cedricrupb.utils.KBInfoHelper;
-import de.cedricrupb.utils.PrefixHelper;
 import org.aksw.limes.core.io.config.KBInfo;
-import org.aksw.limes.core.io.mapping.AMapping;
 
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 

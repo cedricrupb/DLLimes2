@@ -1,4 +1,4 @@
-package de.cedricrupb.react.model;
+package de.cedricrupb.react.learner;
 
 import com.google.common.collect.ImmutableSet;
 import de.cedricrupb.config.model.MLConfig;

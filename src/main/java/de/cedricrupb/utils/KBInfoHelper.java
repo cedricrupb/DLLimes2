@@ -42,4 +42,13 @@ public class KBInfoHelper {
         return copy;
     }
 
+    public static KBInfo injectOptionalProperties(KBInfo info, Set<String> properties){
+        KBInfo copy = copy(info);
+        List<String> props = new ArrayList<>();
+        copy.setProperties(props);
+        for(String prop: properties)
+            XMLConfigurationReader.processOptionalProperty(copy, prop);
+        return copy;
+    }
+
 }

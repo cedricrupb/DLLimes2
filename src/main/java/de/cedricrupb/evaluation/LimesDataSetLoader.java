@@ -26,10 +26,16 @@ public class LimesDataSetLoader {
                 srcExamples
         );
 
+        srcConfig.getInfo().setProperties(new ArrayList<>());
+        srcConfig.getInfo().setRestrictions(new ArrayList<>());
+
         TargetDomainConfig targetConfig = new TargetDomainConfig(
                 data.getConfigReader().getConfiguration().getTargetInfo(),
                 targetExamples
         );
+
+        targetConfig.getInfo().setProperties(new ArrayList<>());
+        //targetConfig.getInfo().setRestrictions(new ArrayList<>());
 
 
         return new LearningConfig(

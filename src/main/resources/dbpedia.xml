@@ -13,8 +13,12 @@
         <LABEL>http://www.w3.org/2000/01/rdf-schema#</LABEL>
     </PREFIX>
     <PREFIX>
-        <NAMESPACE>http</NAMESPACE>
-        <LABEL>http</LABEL>
+        <NAMESPACE>foaf</NAMESPACE>
+        <LABEL>http://xmlns.com/foaf/0.1/</LABEL>
+    </PREFIX>
+    <PREFIX>
+        <NAMESPACE>dboPopulate</NAMESPACE>
+        <LABEL>http://dbpedia.org/ontology/PopulatedPlace/</LABEL>
     </PREFIX>
     <PREFIX>
         <NAMESPACE>dbo</NAMESPACE>
@@ -28,67 +32,89 @@
         <NAMESPACE>dbw</NAMESPACE>
         <LABEL>http://wikidata.dbpedia.org/resource/</LABEL>
     </PREFIX>
-
+    <PREFIX>
+        <NAMESPACE>dbp</NAMESPACE>
+        <LABEL>http://dbpedia.org/property/</LABEL>
+    </PREFIX>
+    <PREFIX>
+        <NAMESPACE>geo</NAMESPACE>
+        <LABEL>http://www.w3.org/2003/01/geo/wgs84_pos#</LABEL>
+    </PREFIX>
+    <PREFIX>
+        <NAMESPACE>georss</NAMESPACE>
+        <LABEL>http://www.georss.org/georss/</LABEL>
+    </PREFIX>
+    <PREFIX>
+        <NAMESPACE>purl</NAMESPACE>
+        <LABEL>http://purl.org/dc/terms/</LABEL>
+    </PREFIX>
+    <PREFIX>
+        <NAMESPACE>owl</NAMESPACE>
+        <LABEL>http://www.w3.org/2002/07/owl#</LABEL>
+    </PREFIX>
 
     <SOURCE>
         <ID>dbp</ID>
-        <ENDPOINT>http://dbpedia.org/sparql</ENDPOINT>
+        <ENDPOINT>http://live.dbpedia.org/sparql</ENDPOINT>
         <VAR>?x</VAR>
-        <PAGESIZE>2000</PAGESIZE>
+        <PAGESIZE>1000</PAGESIZE>
+        <GRAPH>http://dbpedia.org</GRAPH>
+        <RESTRICTION>?x a dbo:City</RESTRICTION>
         <TYPE>sparql</TYPE>
     </SOURCE>
     <TARGET>
         <ID>dbw</ID>
-        <ENDPOINT>http://wikidata.dbpedia.org/sparql</ENDPOINT>
+        <ENDPOINT>http://live.dbpedia.org/sparql</ENDPOINT>
         <VAR>?y</VAR>
-        <PAGESIZE>2000</PAGESIZE>
+        <PAGESIZE>1000</PAGESIZE>
+        <GRAPH>http://dbpedia.org</GRAPH>
         <TYPE>sparql</TYPE>
     </TARGET>
 
     <MAPPING>
         <POSITIVE>
-            <SOURCE>dbr:Andreas_Ekberg</SOURCE>
-            <TARGET>dbw:Andreas_Ekberg</TARGET>
+            <SOURCE>dbr:Berlin</SOURCE>
+            <TARGET>dbr:Berlin</TARGET>
         </POSITIVE>
         <POSITIVE>
-            <SOURCE>dbr:Danilo_Tognon</SOURCE>
-            <TARGET>dbw:Danilo_Tognon</TARGET>
+            <SOURCE>dbr:Prague</SOURCE>
+            <TARGET>dbr:Prague</TARGET>
         </POSITIVE>
         <POSITIVE>
-            <SOURCE>dbr:Megan_Lawrence</SOURCE>
-            <TARGET>dbw:Megan_Lawrence</TARGET>
+            <SOURCE>dbr:London</SOURCE>
+            <TARGET>dbr:London</TARGET>
         </POSITIVE>
         <POSITIVE>
-            <SOURCE>dbr:Peter_Ceffons</SOURCE>
-            <TARGET>dbw:Peter_Ceffons</TARGET>
+            <SOURCE>dbr:Rome</SOURCE>
+            <TARGET>dbr:Rome</TARGET>
         </POSITIVE>
         <POSITIVE>
-            <SOURCE>dbr:Antonio_Bova</SOURCE>
-            <TARGET>dbw:Antonio_Bova</TARGET>
+            <SOURCE>dbr:Moscow</SOURCE>
+            <TARGET>dbr:Moscow</TARGET>
         </POSITIVE>
         <POSITIVE>
-            <SOURCE>dbr:Barry_James</SOURCE>
-            <TARGET>dbw:Barry_James</TARGET>
+            <SOURCE>dbr:Paris</SOURCE>
+            <TARGET>dbr:Paris</TARGET>
         </POSITIVE>
         <NEGATIVE>
-            <SOURCE>dbr:Andreas_Ekberg</SOURCE>
-            <TARGET>dbw:Megan_Lawrence</TARGET>
+            <SOURCE>dbr:Berlin</SOURCE>
+            <TARGET>dbw:Paris</TARGET>
         </NEGATIVE>
         <NEGATIVE>
-            <SOURCE>dbr:Andreas_Ekberg</SOURCE>
-            <TARGET>dbw:Peter_Ceffons</TARGET>
+            <SOURCE>dbr:Moscow</SOURCE>
+            <TARGET>dbr:London</TARGET>
         </NEGATIVE>
         <NEGATIVE>
-            <SOURCE>dbr:Andreas_Ekberg</SOURCE>
-            <TARGET>dbw:Antonio_Bova</TARGET>
+            <SOURCE>dbr:Rome</SOURCE>
+            <TARGET>dbr:Prague</TARGET>
         </NEGATIVE>
         <NEGATIVE>
-            <SOURCE>dbr:Antonio_Bova</SOURCE>
-            <TARGET>dbw:Megan_Lawrence</TARGET>
+            <SOURCE>dbr:Rome</SOURCE>
+            <TARGET>dbr:Paris</TARGET>
         </NEGATIVE>
         <NEGATIVE>
-            <SOURCE>dbr:Daryl_Homer</SOURCE>
-            <TARGET>dbw:Barry_James</TARGET>
+            <SOURCE>dbr:Berlin</SOURCE>
+            <TARGET>dbr:Moscow</TARGET>
         </NEGATIVE>
     </MAPPING>
 
@@ -106,7 +132,7 @@
         </PARAMETER>
         <PARAMETER>
             <NAME>property_min_coverage</NAME>
-            <VALUE>0.6</VALUE>
+            <VALUE>0.9</VALUE>
         </PARAMETER>
     </MLALGORITHM>
 

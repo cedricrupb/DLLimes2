@@ -53,10 +53,10 @@ public class LazyQuery implements Iterable<QuerySolution> {
                 parent.unregisterDescription(results);
             }
 
-            String q = EndPointHelper.addPrefix(kb,
-                    EndPointHelper.addOffset(query, offset, kb.getPageSize()));
+            String q = EndPointHelper.instance().addPrefix(kb,
+                    EndPointHelper.instance().addOffset(query, offset, kb.getPageSize()));
 
-            results = EndPointHelper.queryEndpoint(kb, q);
+            results = EndPointHelper.instance().queryEndpoint(kb, q);
             parent.registerDescription(results);
 
             offset += kb.getPageSize();

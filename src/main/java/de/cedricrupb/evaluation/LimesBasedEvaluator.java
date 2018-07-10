@@ -5,6 +5,7 @@ import de.cedricrupb.ApplicationContext;
 import de.cedricrupb.config.model.LearningConfig;
 import de.cedricrupb.config.model.MLConfig;
 import de.cedricrupb.config.model.TerminateConfig;
+import de.cedricrupb.event.ExceptionEvent;
 import de.cedricrupb.event.config.ConfigLoadingEvent;
 import de.cedricrupb.event.learn.TerminationEvent;
 import org.aksw.limes.core.evaluation.evaluationDataLoader.EvaluationData;
@@ -23,6 +24,7 @@ public class LimesBasedEvaluator {
 
     private ApplicationContext ctx;
 
+    private boolean interuppt = false;
     private IdentityHashMap<LearningConfig, EventBasedCallable> callback = new IdentityHashMap<>();
 
     public LimesBasedEvaluator(ApplicationContext ctx) {
@@ -36,7 +38,7 @@ public class LimesBasedEvaluator {
             Path p = Files.createTempFile("dataSetOut", ".nt");
 
             TerminateConfig term = new TerminateConfig(
-                    3, true, p.toString()
+                    1, true, p.toString()
             );
 
             LearningConfig cfg = LimesDataSetLoader.getData(data, new MLConfig(), term);
@@ -46,7 +48,9 @@ public class LimesBasedEvaluator {
 
             this.ctx.getBus().post(new ConfigLoadingEvent(cfg));
 
-            return new FutureTask<>(callable);
+            FutureTask<AMapping> task =  new FutureTask<>(callable);
+            new Thread(task).run();
+            return task;
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -59,8 +63,20 @@ public class LimesBasedEvaluator {
     public void onTermination(TerminationEvent event){
         if(callback.containsKey(event.getConfig())){
             EventBasedCallable callable = callback.remove(event.getConfig());
-            callable.mapping = event.getTerminationMapping();
-            callable.notifyAll();
+            synchronized (callable) {
+                callable.mapping = event.getTerminationMapping();
+                callable.notifyAll();
+            }
+        }
+    }
+
+    @Subscribe
+    public void onException(ExceptionEvent event){
+        interuppt = true;
+        for(EventBasedCallable callable: callback.values()){
+            synchronized (callable){
+                callable.notifyAll();
+            }
         }
     }
 
@@ -72,7 +88,7 @@ public class LimesBasedEvaluator {
         @Override
         public AMapping call() throws Exception {
             synchronized (this) {
-                while (mapping == null) {
+                while (!interuppt && mapping == null) {
                     this.wait();
                 }
             }

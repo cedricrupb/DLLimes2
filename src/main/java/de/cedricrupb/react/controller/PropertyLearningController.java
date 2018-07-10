@@ -10,16 +10,16 @@ import de.cedricrupb.event.config.MappingConfigEvent;
 import de.cedricrupb.event.learn.CoveredPropertyEvent;
 import de.cedricrupb.event.learn.MatchedPropertyEvent;
 import de.cedricrupb.event.learn.RestrictionEvent;
-import de.cedricrupb.react.model.PropertyCoverageFilter;
-import de.cedricrupb.react.model.PropertyLearner;
+import de.cedricrupb.event.learn.observation.KBLongObservationEvent;
+import de.cedricrupb.event.learn.observation.KBObservationEvent;
+import de.cedricrupb.react.learner.PropertyCoverageFilter;
+import de.cedricrupb.react.learner.PropertyLearner;
 import de.cedricrupb.utils.AsyncJoiner;
 import de.cedricrupb.utils.KBInfoHelper;
 import org.aksw.limes.core.io.config.KBInfo;
 import org.aksw.limes.core.ml.algorithm.LearningParameter;
 
 
-import java.lang.reflect.Parameter;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -38,7 +38,7 @@ public class PropertyLearningController {
 
     private void joinConsumer(Map<String, Object> items){
         KBInfo source = (KBInfo) items.get("source");
-        KBInfo target = (KBInfo) items.get("source");
+        KBInfo target = (KBInfo) items.get("target");
         Set<Reference> mapping = (Set<Reference>) items.get("mapping");
         LearningConfig config = (LearningConfig) items.get("JOINED_ON");
         onJoin(config, source, target, mapping);
@@ -56,6 +56,17 @@ public class PropertyLearningController {
     public void onRestriction(RestrictionEvent event){
         double threshold = 0.6;
 
+        String key;
+        KBObservationEvent.KBType type;
+        if(event.getDomainConfig() instanceof SourceDomainConfig){
+            key = "source";
+            type = KBObservationEvent.KBType.SOURCE;
+        }else{
+            key = "target";
+            type = KBObservationEvent.KBType.TARGET;
+        }
+
+
         MLConfig ml = event.getConfig().getMlConfig();
         for(LearningParameter parameter: ml.getMlAlgorithmParameters())
             if(parameter.getName().equalsIgnoreCase("property_min_coverage"))
@@ -69,15 +80,14 @@ public class PropertyLearningController {
         );
         filter.run();
 
+        this.ctx.getBus().post(new KBLongObservationEvent(
+                type, "restriction.entity.count", filter.getEntityCount()
+        ));
+
         this.ctx.getBus().post(new CoveredPropertyEvent(event.getConfig(), event.getDomainConfig(),
                                                         filter.getProperties()));
 
-        String key;
-        if(event.getDomainConfig() instanceof SourceDomainConfig){
-            key = "source";
-        }else{
-            key = "target";
-        }
+
 
         this.joiner.join(event.getConfig(), key,
                     buildInfo(event.getDomainConfig().getInfo(), event.getRestriction(), filter.getProperties())

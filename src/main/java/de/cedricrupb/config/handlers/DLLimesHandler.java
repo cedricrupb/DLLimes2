@@ -10,7 +10,7 @@ import java.util.Set;
 /**
  *
  * A handler for the root of DOM tree.
- * It merges all subconfigurations in one model.
+ * It merges all subconfigurations in one learner.
  *
  * @author Cedric Richter
  */

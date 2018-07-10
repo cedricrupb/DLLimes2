@@ -13,8 +13,9 @@ public class ApplicationContext {
         bus.register(new ClassLearningController(ctx));
         bus.register(new PropertyLearningController(ctx));
         bus.register(new ExampleFindingController(ctx));
+        bus.register(new QualityController(ctx));
         bus.register(new TerminationController(ctx));
-
+        bus.register(new ExampleExpansionController(ctx));
         return ctx;
     }
 

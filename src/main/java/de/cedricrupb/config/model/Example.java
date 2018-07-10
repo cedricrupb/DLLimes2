@@ -17,9 +17,12 @@ public class Example {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Example that = (Example) o;
-        return Objects.equals(uri, that.uri);
+        if (o == null) return false;
+        if(o instanceof Example) {
+            Example that = (Example) o;
+            return Objects.equals(uri, that.uri);
+        }
+        return false;
     }
 
     @Override

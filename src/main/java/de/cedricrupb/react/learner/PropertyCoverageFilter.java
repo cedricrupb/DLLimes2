@@ -1,26 +1,36 @@
-package de.cedricrupb.react.model;
+package de.cedricrupb.react.learner;
 
-import de.cedricrupb.config.model.Reference;
 import de.cedricrupb.utils.LazyQueryFactory;
 import de.cedricrupb.utils.PrefixHelper;
 import org.aksw.limes.core.io.config.KBInfo;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.apache.jena.query.QuerySolution;
 import org.apache.jena.rdf.model.Resource;
 
+import java.text.NumberFormat;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 public class PropertyCoverageFilter implements Runnable {
 
+    static Log log = LogFactory.getLog(PropertyCoverageFilter.class);
+
+    List<String> propFilter = new ArrayList<>();
+
     private KBInfo kb;
     private double threshold;
 
     private Set<String> properties;
 
+    private long entityCount = -1;
+
     public PropertyCoverageFilter(KBInfo info, double threshold) {
         this.kb = info;
         this.threshold = threshold;
+        propFilter.add("(.*)wikiPage(.*)");
     }
 
 
@@ -38,25 +48,30 @@ public class PropertyCoverageFilter implements Runnable {
         String res = createRestriction(kb.getRestrictions());
         String queryFull = createCountQuery(kb.getVar(), res);
 
-        long count = 0;
         try {
-
+            log.info("Start coverage calculation ( "+threshold+" threshold): "+kb.getRestrictions());
             for (QuerySolution solution : factory.create(kb, queryFull)) {
-                count = solution.getLiteral("?c").getLong();
+                entityCount = solution.getLiteral("?c").getLong();
             }
 
-            String cov = createCoverageQuery(kb.getVar(), res);
-            for (QuerySolution covSol : factory.create(kb, cov)) {
-                Resource r = covSol.getResource("?p");
-                long c = covSol.getLiteral("?count").getLong();
+            NumberFormat format = NumberFormat.getPercentInstance();
 
-                double coverage = c / count;
+            if(entityCount > 0) {
+                String cov = createCoverageQuery(kb.getVar(), res);
+                for (QuerySolution covSol : factory.create(kb, cov)) {
+                    Resource r = covSol.getResource("?p");
+                    long c = covSol.getLiteral("?count").getLong();
 
-                if (coverage < threshold) {
-                    break;
+                    double coverage = entityCount > 0 ? c / entityCount : 1.0;
+
+                    if (coverage < threshold) {
+                        break;
+                    }
+
+                    log.info(r.getURI()+" is covered by "+format.format(coverage)+" instances.");
+
+                    prop.add(r.getURI());
                 }
-
-                prop.add(r.getURI());
             }
 
         }finally{
@@ -66,13 +81,32 @@ public class PropertyCoverageFilter implements Runnable {
         properties = new HashSet<>();
 
         for(String p: prop){
-            properties.add(PrefixHelper.revertSinglePrefix(p, kb.getPrefixes()));
+            if(!filter(p))
+                properties.add(PrefixHelper.revertSinglePrefix(p, kb.getPrefixes(), true));
         }
 
     }
 
     public Set<String> getProperties() {
         return properties;
+    }
+
+    public long getEntityCount() {
+        return entityCount;
+    }
+
+    private boolean filter(String s){
+
+        boolean filter = false;
+
+        for(String regex: propFilter){
+
+            filter |= s.matches(regex);
+
+        }
+
+        return filter;
+
     }
 
     private String createRestriction(List<String> restrictions){
@@ -94,6 +128,6 @@ public class PropertyCoverageFilter implements Runnable {
     }
 
     private String createCountQuery(String var, String res){
-        return "SELECT DISTINCT (count("+var+") AS ?c) WHERE {"+res+"}";
+        return "SELECT DISTINCT (count(distinct "+var+") AS ?c) WHERE {"+res+"}";
     }
 }

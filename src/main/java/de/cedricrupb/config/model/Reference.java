@@ -23,10 +23,13 @@ public class Reference {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Reference reference = (Reference) o;
-        return Objects.equals(source, reference.source) &&
-                Objects.equals(target, reference.target);
+        if (o == null) return false;
+        if(o instanceof Reference) {
+            Reference reference = (Reference) o;
+            return Objects.equals(source, reference.source) &&
+                    Objects.equals(target, reference.target);
+        }
+        return false;
     }
 
     @Override

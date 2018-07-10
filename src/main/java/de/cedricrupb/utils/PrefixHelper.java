@@ -2,8 +2,7 @@ package de.cedricrupb.utils;
 
 import org.semanticweb.owlapi.model.IRI;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -35,6 +34,22 @@ public class PrefixHelper {
         return str;
     }
 
+    private static List<Map.Entry<String, String>> sort(Map<String, String> prefix){
+        List<Map.Entry<String, String>> list = new ArrayList<>(prefix.entrySet());
+
+        Comparator<Map.Entry<String, String>> comp = Collections.reverseOrder(
+                new Comparator<Map.Entry<String, String>>() {
+                    @Override
+                    public int compare(Map.Entry<String, String> o1, Map.Entry<String, String> o2) {
+                        return o1.getValue().length() - o2.getValue().length();
+                    }
+                }
+        );
+        Collections.sort(list, comp);
+        return list;
+    }
+
+
     public static String revertPrefix(String str, Map<String, String> prefix){
 
         final Matcher matcher = Pattern.compile("<\\S+>").matcher(str);
@@ -45,7 +60,7 @@ public class PrefixHelper {
             String entity = matcher.group();
             String replaceStr = entity.substring(1, entity.length()-1);
 
-            for(Map.Entry<String, String> p: prefix.entrySet()){
+            for(Map.Entry<String, String> p: sort(prefix)){
                 if(replaceStr.contains(p.getValue())){
                     replaceStr = replaceStr.replace(p.getValue(), p.getKey()+":");
                     replace.put(entity, replaceStr);
@@ -61,9 +76,20 @@ public class PrefixHelper {
     }
 
     public static String revertSinglePrefix(String str, Map<String, String> prefix){
-        for(Map.Entry<String, String> p: prefix.entrySet()){
+        return PrefixHelper.revertSinglePrefix(str, prefix, false);
+    }
+
+    public static String revertSinglePrefix(String str, Map<String, String> prefix, boolean quote){
+        boolean prefixed = false;
+        for(Map.Entry<String, String> p: sort(prefix)){
+            prefixed |= str.contains(p.getValue());
             str = str.replaceAll(Pattern.quote(p.getValue()), p.getKey()+":");
         }
+
+        if(!prefixed && quote){
+            return "<"+str+">";
+        }
+
         return str;
     }
 
