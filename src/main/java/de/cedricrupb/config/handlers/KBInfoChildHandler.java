@@ -7,7 +7,7 @@ import java.util.Map;
 
 /**
  *
- * Handles the children of a knowledge base configuration in DOM tree.
+ * Handles the children of a knowledge base configuration in DOM tree
  *
  * @author Cedric Richter
  */

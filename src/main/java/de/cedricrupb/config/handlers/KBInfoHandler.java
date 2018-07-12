@@ -9,7 +9,7 @@ import java.util.*;
 
 /**
  * A handler for the knowledge base configuration.
- * A knowledge base defines the endpoint which should be queried.
+ * A knowledge base defines the endpoint which should be queried
  *
  * @author Cedric Richter
  */

@@ -5,7 +5,7 @@ import java.util.Map;
 
 /**
  *
- * Interface Class implementing methods of SAXConfigParses and Handler Classes of Source & Target
+ * Interface Class implementing methods of SAXConfigParses and Handler Classes of Source & Target.
  *
  * @author Cedric Richter
  */

@@ -8,7 +8,7 @@ import java.util.function.Function;
 
 /**
  *
- * Class that records and logs every iteration
+ * Class that records and logs every iteration.
  *
  * @author Cedric Richter
  */

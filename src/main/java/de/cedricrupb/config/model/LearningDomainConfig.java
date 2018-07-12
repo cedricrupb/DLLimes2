@@ -7,7 +7,7 @@ import java.util.Set;
 
 /**
  *
- * Class to Learn the Configuration from Domain from KBInfo and Examples
+ * Class to Learn the Configuration from Domain from KBInfo and Examples.
  *
  * @author Cedric Richter
  */

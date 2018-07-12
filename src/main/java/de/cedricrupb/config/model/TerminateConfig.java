@@ -2,7 +2,7 @@ package de.cedricrupb.config.model;
 
 /**
  *
- * Class to terminate configuration operations after a set fixpoint/iterations
+ * Class to terminate configuration operations after a set fixpoint/iterations.
  *
  * @author Cedric Richter
  */

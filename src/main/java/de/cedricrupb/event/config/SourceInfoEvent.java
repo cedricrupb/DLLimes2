@@ -5,7 +5,7 @@ import de.cedricrupb.config.model.LearningDomainConfig;
 
 /**
  *
- * Class SourceInfoEvent creates a SourceInfo Event based on Learning Config and LearningDomainConfig
+ * Class SourceInfoEvent creates a SourceInfo Event based on Learning Config and LearningDomainConfig.
  *
  * @author Cedric Richter
  */

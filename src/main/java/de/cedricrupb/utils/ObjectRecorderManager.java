@@ -5,6 +5,14 @@ import com.google.common.collect.ImmutableList;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ *
+ * Class that manages object recorder and registers and object recorder.
+ *
+ * @author Cedric Richter
+ */
+
+
 public class ObjectRecorderManager {
 
     private List<ObjectRecorder> epochs = new ArrayList<>();

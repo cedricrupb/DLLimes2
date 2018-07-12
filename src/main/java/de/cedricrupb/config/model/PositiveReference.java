@@ -2,7 +2,7 @@ package de.cedricrupb.config.model;
 
 /**
  *
- * Class extended from Reference Class to obtain Positive Reference
+ * Class extended from Reference Class to obtain Positive Reference.
  *
  * @author Cedric Richter
  */

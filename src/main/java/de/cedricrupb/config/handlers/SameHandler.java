@@ -8,7 +8,7 @@ import java.util.Map;
 
 /**
  * This handler allows to define two instances which are the same (positive) or
- * are not the same (negative).
+ * are not the same (negative)
  *
  * @author Cedric Richter
  */

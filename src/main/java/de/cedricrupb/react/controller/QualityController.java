@@ -21,7 +21,7 @@ import java.text.NumberFormat;
 
 /**
  *
- * Class that records Quality from source, target and records these observationsto report
+ * Class that records Quality from source, target and records these observationsto report.
  *
  * @author Cedric Richter
  */

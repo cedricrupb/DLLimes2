@@ -6,7 +6,7 @@ import java.util.Set;
 
 /**
  *
- * Class extended from DomainLearningConfig to obtain Target learning domain config
+ * Class extended from DomainLearningConfig to obtain Target learning domain config.
  *
  * @author Cedric Richter
  */

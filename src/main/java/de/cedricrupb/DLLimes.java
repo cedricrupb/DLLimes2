@@ -33,7 +33,7 @@ import java.util.concurrent.Future;
  *
  * Class that joins the Functionality of DL-Learner and LIMES
  * Runs on a Dataset, learns from DL-Learner, feeds it to LIMES, obtains FMeasure, Recall, Precision
- * and feeds it back to DL-Learner
+ * and feeds it back to DL-Learner for further learning.
  *
  * @author Cedric Richter
  */

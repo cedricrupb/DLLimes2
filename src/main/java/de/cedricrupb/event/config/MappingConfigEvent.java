@@ -8,7 +8,7 @@ import java.util.Set;
 
 /**
  *
- * Class MappingConfigEvent creates a MappingConfig Event based on Mapping
+ * Class MappingConfigEvent creates a MappingConfig Event based on Mapping.
  *
  * @author Cedric Richter
  */

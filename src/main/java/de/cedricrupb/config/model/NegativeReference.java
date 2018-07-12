@@ -2,7 +2,7 @@ package de.cedricrupb.config.model;
 
 /**
  *
- * Class extended from Reference Class to obtain negative references
+ * Class extended from Reference Class to obtain negative references.
  *
  * @author Cedric Richter
  */

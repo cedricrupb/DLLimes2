@@ -11,7 +11,7 @@ import java.util.Map;
 /**
  *
  * A handler for the machine learning configuration.
- * Refer to LIMES for a detailed description.
+ * Refer to LIMES for a detailed description
  *
  * @author Cedric Richter
  */

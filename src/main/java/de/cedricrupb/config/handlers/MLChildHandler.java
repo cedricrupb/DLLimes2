@@ -25,7 +25,6 @@ public class MLChildHandler implements IConfigHandler {
                 );
     }
     /**
-     *
      * Parses the object to learning parameter
      * @return child
      */

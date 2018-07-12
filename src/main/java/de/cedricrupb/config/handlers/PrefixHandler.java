@@ -10,7 +10,7 @@ import java.util.Map;
 
 /**
  * A handler for prefix configuration. It allows to define a new prefix for
- * both source and target endpoint.
+ * both source and target endpoint
  *
  * @author Cedric Richter
  */

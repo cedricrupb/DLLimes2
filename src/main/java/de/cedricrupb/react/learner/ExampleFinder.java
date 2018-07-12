@@ -22,8 +22,7 @@ import java.util.Set;
 
 /**
  *
- * Class that finds Examples, uses KBSourceInfo, KBTargetInfo, MLConfig and set of References
- *
+ * Class that finds Examples, uses KBSourceInfo, KBTargetInfo, MLConfig and set of References.
  *
  * @author Cedric Richter
  */

@@ -8,7 +8,7 @@ import java.util.Objects;
  *
  * Class to process a learned Class
  *
- * To obtain accuracy, class expression and restriction
+ * To obtain accuracy, class expression and restriction.
  *
  * @author Cedric Richter
  */

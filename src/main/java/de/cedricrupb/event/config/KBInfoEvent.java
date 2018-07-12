@@ -6,7 +6,7 @@ import de.cedricrupb.event.ConfigBasedEvent;
 
 /**
  *
- * Class KBinfoEvent creates a KBInfo Event based on LearningDomainConfig
+ * Class KBinfoEvent creates a KBInfo Event based on LearningDomainConfig.
  *
  * @author Cedric Richter
  */

@@ -19,7 +19,7 @@ import java.util.Set;
 
 /**
  *
- * Class that finds examples and joins them on with Source & Target Property, Source & Target Restriction & Mapping
+ * Class that finds examples and joins them on with Source & Target Property, Source & Target Restriction & Mapping.
  *
  * @author Cedric Richter
  */

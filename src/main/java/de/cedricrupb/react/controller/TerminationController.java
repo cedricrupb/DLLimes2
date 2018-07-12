@@ -26,6 +26,7 @@ import java.util.*;
 /**
  *
  * Class that triggers termination control
+ *
  * Learning and Joining has to terminate the process at a certain point else it would continue forever,
  * so termination is important when needed based on some conditions,
  * One can define when it should terminate here.

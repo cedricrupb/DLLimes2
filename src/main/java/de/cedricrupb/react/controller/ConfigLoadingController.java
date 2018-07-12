@@ -9,7 +9,7 @@ import de.cedricrupb.event.config.TargetInfoEvent;
 
 /**
  *
- * Class that loads configurations for source, target and mapping
+ * Class that loads configurations for source, target and mapping.
  *
  * @author Cedric Richter
  */

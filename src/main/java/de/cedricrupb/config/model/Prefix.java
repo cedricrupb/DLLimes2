@@ -4,7 +4,7 @@ import java.util.Objects;
 
 /**
  *
- * Class to Define and Set Prefixes
+ * Class to Define and Set Prefixes.
  *
  * @author Cedric Richter
  */

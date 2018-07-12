@@ -7,7 +7,7 @@ import java.util.Map;
 
 /**
  *
- * Class to terminate ChildHandler Operations after a fixpoint/iterations.
+ * Class to terminate ChildHandler Operations after a fixpoint/iterations
  *
  * @author Cedric Richter
  */

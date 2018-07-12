@@ -2,7 +2,7 @@ package de.cedricrupb.config.model;
 
 /**
  *
- * Class extended from Example to obtain negative examples
+ * Class extended from Example to obtain negative examples.
  *
  * @author Cedric Richter
  */

@@ -14,7 +14,7 @@ import java.util.*;
 
 /**
  *
- * Class that finds Examples, Expands them from Restrictions, ValidatedExamples and PossibleExamples
+ * Class that finds Examples, Expands them from Restrictions, ValidatedExamples and PossibleExamples.
  *
  *
  * @author Cedric Richter

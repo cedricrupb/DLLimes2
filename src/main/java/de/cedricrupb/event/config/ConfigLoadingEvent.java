@@ -5,7 +5,7 @@ import de.cedricrupb.event.ConfigBasedEvent;
 
 /**
  *
- * Class ConfigLoadingEvent creates a Loading Event based on Learning Config
+ * Class ConfigLoadingEvent creates a Loading Event based on Learning Config.
  *
  * @author Cedric Richter
  */

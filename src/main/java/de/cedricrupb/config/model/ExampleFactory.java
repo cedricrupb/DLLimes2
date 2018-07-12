@@ -43,7 +43,7 @@ public class ExampleFactory {
 
     /**
      *
-     * Create Positive Example
+     * Create Positive Example.
      * @return  Positive example
      */
 

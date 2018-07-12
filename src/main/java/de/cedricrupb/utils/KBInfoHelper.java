@@ -7,6 +7,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+/**
+ *
+ * This Class contains all methods and operations related to KBinfo.
+ *
+ * @author Cedric Richter
+ */
+
+
 public class KBInfoHelper {
 
     public static KBInfo copy(KBInfo info){

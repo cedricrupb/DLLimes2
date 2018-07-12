@@ -15,7 +15,7 @@ import java.util.List;
  * Class Loads all the Configuartions from Package "Handlers" and adds them to a list
  *
  * Brings all the configs from ChildPrefixHandler, PrefixHandler, KBInfoChildHandler, KBInfoHandler, SourceExampleHandler,
- * TargetExampleHandler , MappingHandler, MLChildHandler, MLHandler, TerminateChildHandler, TerminateHandler,
+ * TargetExampleHandler , MappingHandler, MLChildHandler, MLHandler, TerminateChildHandler,TerminateHandler,
  * DLLimesHandler, MappingHandler, SameHandler, SameChildHandler to be used again.
  *
  * @author Cedric Richter

@@ -6,7 +6,7 @@ import java.util.Map;
 
 /**
  *
- * Handles the children of a prefix in DOM tree.
+ * Handles the children of a prefix in DOM tree
  *
  * @author Cedric Richter
  */

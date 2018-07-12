@@ -12,6 +12,14 @@ import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Consumer;
 
+/**
+ *
+ * Class to log and record objects and make them immutable if possible.
+ *
+ * @author Cedric Richter
+ */
+
+
 public class ObjectRecorder {
 
     private int epoch = 0;

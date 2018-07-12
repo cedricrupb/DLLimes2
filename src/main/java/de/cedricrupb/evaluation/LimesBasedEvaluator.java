@@ -22,7 +22,7 @@ import java.util.concurrent.FutureTask;
 
 /**
  *
- * Class that bases on LIMES logic/functionality to Evaluate
+ * Class that bases on LIMES logic/functionality to Evaluate.
  *
  * @author Cedric Richter
  */

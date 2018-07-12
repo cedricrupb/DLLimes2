@@ -8,7 +8,7 @@ import java.util.List;
 
 /**
  *
- * Class to set Configuration of MachineLearningAlgorithm
+ * Class to set Configuration of MachineLearningAlgorithm.
  *
  * @author Cedric Richter
  */

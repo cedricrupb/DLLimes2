@@ -7,7 +7,7 @@ import java.util.Set;
 
 /**
  *
- * Class to Describe the Configuartion for Learning Purpose
+ * Class to Describe the Configuartion for Learning Purpose.
  *
  * @author Cedric Richter
  */

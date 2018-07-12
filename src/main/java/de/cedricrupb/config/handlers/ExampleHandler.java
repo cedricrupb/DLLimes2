@@ -15,7 +15,7 @@ public abstract class ExampleHandler implements IConfigHandler {
 
     /**
      *
-     * Handles the namespace, label as Negative & Positive examples
+     * Handles the namespace, label as Negative & Positive examples.
      * @return  Namespace and Label
      */
 

@@ -8,7 +8,7 @@ import de.cedricrupb.utils.ObjectRecorderManager;
 
 /**
  *
- * Class determines Application Context, records objects and gives context based on Controllers
+ * Class determines Application Context, records objects and gives context based on Controllers.
  *
  * @author Cedric Richter
  */
@@ -24,7 +24,7 @@ public class ApplicationContext {
         bus.register(new ExampleFindingController(ctx));
         bus.register(new QualityController(ctx));
         bus.register(new TerminationController(ctx));
-        //bus.register(new ExampleExpansionController(ctx));
+        bus.register(new ExampleExpansionController(ctx));
         return ctx;
     }
 

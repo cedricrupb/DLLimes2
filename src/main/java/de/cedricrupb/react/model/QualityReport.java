@@ -13,7 +13,7 @@ import java.util.Set;
  *
  * Class to obtain a quality report from a learned Classes from both source and target as well as mappings
  *
- * The report gives Precision, Fmeasure and Recall
+ * The report gives Precision, Fmeasure and Recall.
  *
  * @author Cedric Richter
  */

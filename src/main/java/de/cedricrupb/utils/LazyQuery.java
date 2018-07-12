@@ -7,6 +7,14 @@ import java.util.Iterator;
 import java.util.NoSuchElementException;
 import java.util.Objects;
 
+/**
+ *
+ * LazyQuery keeps everything in regard and performs a detailed iteration on query and results.
+ *
+ * @author Cedric Richter
+ */
+
+
 public class LazyQuery implements Iterable<QuerySolution> {
 
     private KBInfo kb;

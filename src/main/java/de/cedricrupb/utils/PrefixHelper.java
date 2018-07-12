@@ -6,6 +6,14 @@ import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ *
+ * Class to help resolvePrefixes and revert them if needed. Operations related to prefix are handled here.
+ *
+ * @author Cedric Richter
+ */
+
+
 public class PrefixHelper {
 
     public static String resolvePrefix(String str, Map<String, String> prefix){

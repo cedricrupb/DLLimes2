@@ -10,7 +10,7 @@ import java.util.*;
 
 /**
  *
- * Class SAXConfigParser creates a config based on StartElement, EndElement, Root and SAXContext
+ * Class SAXConfigParser creates a config based on StartElement, EndElement, Root and SAXContext.
  *
  * @author Cedric Richter
  */

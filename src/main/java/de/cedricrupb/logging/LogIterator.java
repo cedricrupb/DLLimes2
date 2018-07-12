@@ -9,7 +9,7 @@ import java.util.function.Function;
 
 /**
  *
- * Class that iterates logger to keep it running at every iteration
+ * Class that iterates logger to keep it running at every iteration.
  *
  * @author Cedric Richter
  */

@@ -20,7 +20,7 @@ import java.util.Set;
 
 /**
  *
- * Class that performs learning operations on Classes
+ * Class that performs learning operations on Classes.
  *
  * @author Cedric Richter
  */

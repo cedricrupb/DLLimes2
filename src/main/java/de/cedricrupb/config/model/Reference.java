@@ -4,7 +4,7 @@ import java.util.Objects;
 
 /**
  *
- * Class to define references from source and target examples
+ * Class to define references from source and target examples.
  *
  * @author Cedric Richter
  */

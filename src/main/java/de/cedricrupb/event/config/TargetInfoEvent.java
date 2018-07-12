@@ -6,7 +6,7 @@ import de.cedricrupb.config.model.LearningDomainConfig;
 
 /**
  *
- * Class TargetInfoEvent creates a TargetInfo Event based on Learning Config and LearningDomainConfig
+ * Class TargetInfoEvent creates a TargetInfo Event based on Learning Config and LearningDomainConfig.
  *
  * @author Cedric Richter
  */

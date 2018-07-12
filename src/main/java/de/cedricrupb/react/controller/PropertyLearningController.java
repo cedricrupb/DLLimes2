@@ -26,7 +26,7 @@ import java.util.Set;
 
 /**
  *
- * Class that handles PropertyLearning and joins them on with Source, Target & Mapping
+ * Class that handles PropertyLearning and joins them on with Source, Target & Mapping.
  *
  * @author Cedric Richter
  */

@@ -10,7 +10,7 @@ import java.util.*;
 /**
  *
  * Class to load DataSets from LIMES to describe learning configuration from source, target and GoldStarndard,
- * depending on these reference of Positive/Negative Examples are generated
+ * depending on these reference of Positive/Negative Examples are generated.
  *
  * @author Cedric Richter
  */

@@ -17,6 +17,15 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
+/**
+ *
+ * A Simple Similarity Set Based on prefixes, references, Source & Target instances.
+ * Also provides the similarity score.
+ *
+ * @author Cedric Richter
+ */
+
+
 public class SimpleSimilaritySet implements ISimilaritySet {
 
     private Map<String, String> prefixes;

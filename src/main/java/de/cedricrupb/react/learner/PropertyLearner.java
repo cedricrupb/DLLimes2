@@ -23,7 +23,7 @@ import java.util.*;
 /**
  *
  * Class that learns properties from Source Info, Target Info and Mapping
- * Positive and Negative Properties from both and target can be obtained and learned
+ * Positive and Negative Properties from both and target can be obtained and learned.
  *
  *
  * @author Cedric Richter
