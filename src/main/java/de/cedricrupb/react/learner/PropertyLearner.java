@@ -41,6 +41,14 @@ public class PropertyLearner implements Runnable {
 
     @Override
     public void run() {
+
+        if(mapping.isEmpty()){
+            logger.info("Could not filter properties as learning set is empty.");
+            srcProperties = new HashSet<>(srcInfo.getProperties());
+            targetProperties = new HashSet<>(targetInfo.getProperties());
+            return;
+        }
+
         Set<PositiveReference> pos = new HashSet<>();
         Set<NegativeReference> neg = new HashSet<>();
 
@@ -162,6 +170,9 @@ public class PropertyLearner implements Runnable {
     }
 
     private Map<String, Instance> createInstances(KBInfo kb, List<OWLIndividual> ind, List<String> prop){
+
+        if(prop == null || prop.isEmpty() || ind == null || ind.isEmpty())
+            return new HashMap<>();
 
         Map<String, Instance> map = new HashMap<>();
 

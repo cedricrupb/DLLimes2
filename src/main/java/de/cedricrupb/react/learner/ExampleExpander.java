@@ -2,9 +2,12 @@ package de.cedricrupb.react.learner;
 
 import de.cedricrupb.config.model.Example;
 import de.cedricrupb.config.model.ExampleFactory;
+import de.cedricrupb.config.model.NegativeExample;
 import de.cedricrupb.config.model.PositiveExample;
+import de.cedricrupb.react.learner.descriptionLearning.ExampleHandler;
 import de.cedricrupb.utils.LazyQuery;
 import de.cedricrupb.utils.LazyQueryFactory;
+import de.cedricrupb.utils.PrefixHelper;
 import javafx.geometry.Pos;
 import org.aksw.limes.core.io.config.KBInfo;
 import org.apache.jena.query.QuerySolution;
@@ -22,94 +25,107 @@ public class ExampleExpander {
 
     public ExampleExpander(KBInfo info, String restriction, Set<Example> validatedExamples, Set<PositiveExample> possibleExamples) {
         this.info = info;
-        this.validatedExamples = validatedExamples;
-        this.possibleExamples = possibleExamples;
+        this.validatedExamples = unify(info, validatedExamples);
+        this.possibleExamples = unify(info, possibleExamples);
         this.restriction = restriction;
     }
 
 
+    private <T extends Example> Set<T> unify(KBInfo info, Set<T> examples){
+        Set<T> out = new HashSet<>();
+        ExampleFactory factory = new ExampleFactory(new HashMap<>());
+
+        for(Example e: examples){
+            String t = e.getUri();
+            t = PrefixHelper.resolveSinglePrefix(t, info.getPrefixes());
+            if(e instanceof PositiveExample)
+                out.add((T) factory.createPositive(ExampleFactory.ExampleSource.SOURCE, t));
+            else
+                out.add((T) factory.createNegative(ExampleFactory.ExampleSource.SOURCE, t));
+        }
+
+        return out;
+    }
+
+
     public Set<Example> findExamples(int size, double negativeRatio){
+        return findExamples(size, negativeRatio, 0.0);
+    }
 
-        Set<Example> result = new HashSet<>(size);
+    public Set<Example> findExamples(int size, double negativeRatio, double seed){
 
-        int posSize = (int)((1 - negativeRatio)*size);
-        int negSize = (int) (negativeRatio*size);
+        Set<Example> positive = new HashSet<>();
+        Set<Example> negativeExamples = new HashSet<>();
 
         for(Example example: validatedExamples){
-
-            if(posSize <= 0 && negSize <= 0)
-                break;
-
-            if(example instanceof PositiveExample){
-                if(posSize > 0 && result.add(example)){
-                    posSize--;
-                }
-            }else{
-                if(negSize > 0 && result.add(example)){
-                    negSize --;
-                }
-            }
-
-
+            if(example instanceof PositiveExample)
+                positive.add(example);
+            if(example instanceof NegativeExample)
+                negativeExamples.add(example);
         }
 
-        List<Example> sampling = new ArrayList<>(possibleExamples);
-        //sampling.addAll(sampleNegative(negSize));
 
-        Collections.shuffle(sampling);
+        int pos = (int)((1 - negativeRatio - seed)*size);
+        int neg = (int)(negativeRatio*size) - negativeExamples.size();
 
-        for(Example example: sampling){
+        positive.addAll(possibleExamples);
+        Set<Example> out = ExampleHandler.init(info, positive).truncate(pos).build();
 
-            if(posSize <= 0 && negSize <= 0)
-                break;
+        size = Math.min(out.size(), size);
+        int seeding = (int)Math.ceil(seed*size);
 
-            if(example instanceof PositiveExample){
-                if(posSize > 0 && result.add(example)){
-                    posSize--;
-                }
-            }else{
-                if(negSize > 0 && result.add(example)){
-                    negSize --;
-                }
-            }
+        Set<Example> negative = new HashSet<>();
 
-        }
+        negative.addAll(negativeExamples);
+        negative.addAll(negative(neg));
 
-        return result;
-    }
+        Set<Example> S = seed(seeding, negative);
+        negative.removeAll(S);
 
-    private List<Example> sampleNegative(int size){
+        out.addAll(negative);
+        out.addAll(S);
 
-        String var = info.getVar();
-        String restriction = this.restriction;
-        String query = "select "+var+" where {"+restriction+"}";
-
-        ExampleFactory exampleFactory = new ExampleFactory(new HashMap<>());
-        LazyQueryFactory queryFactory = new LazyQueryFactory();
-
-        int load = 2*size;
-
-        List<Example> list = new ArrayList<>(load);
-
-        for(QuerySolution solution : queryFactory.create(info, query)){
-
-            Resource x = solution.getResource(var);
-
-            Example example = exampleFactory.createNegative(ExampleFactory.ExampleSource.SOURCE, x.getURI());
-
-            if(!validatedExamples.contains(example) && !possibleExamples.contains(example)) {
-                list.add(example);
-            }
-
-            if(list.size() >= load)
-                break;
-        }
-
-        Collections.shuffle(list);
-
-        return list.subList(0, Math.min(size, list.size()));
+        return out;
 
     }
 
+    private Set<Example> negative(int size){
+        if(size == 0)return new HashSet<>();
+        return ExampleHandler.init(info, new HashSet<>()).inferNegative(size).build();
+    }
+
+
+    private Set<Example> seed(int size, Set<Example> negative){
+        if(size == 0)return new HashSet<>();
+        List<String> restriction = new ArrayList<>();
+        restriction.add(this.restriction);
+        Set<Example> examples =  ExampleHandler.init(info, new HashSet<>())
+                                                .inferPositive(restriction)
+                                                .build();
+        examples.removeAll(validatedExamples);
+        examples.removeAll(possibleExamples);
+
+        Set<Example> out = new HashSet<>();
+        if(!examples.isEmpty()) {
+
+            examples = ExampleHandler.init(info, examples).truncate(size).build();
+
+            ExampleFactory factory = new ExampleFactory(new HashMap<>());
+
+            for (Example ex : examples)
+                out.add(factory.createNegative(ExampleFactory.ExampleSource.SOURCE, ex.getUri()));
+
+        }else{
+            examples = ExampleHandler.init(info, negative).truncate(size).build();
+
+            ExampleFactory factory = new ExampleFactory(new HashMap<>());
+
+            for (Example ex : examples)
+                out.add(factory.createPositive(ExampleFactory.ExampleSource.SOURCE, ex.getUri()));
+        }
+
+
+        return out;
+    }
 
 }

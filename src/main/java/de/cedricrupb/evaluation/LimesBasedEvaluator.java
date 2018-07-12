@@ -20,6 +20,12 @@ import java.util.concurrent.Callable;
 import java.util.concurrent.Future;
 import java.util.concurrent.FutureTask;
 
+/**
+ *
+ * An evaluator which can load evaluation data from limes and test it with Dllimes
+ *
+ * @author Cedric Richter
+ */
 public class LimesBasedEvaluator {
 
     private ApplicationContext ctx;

@@ -7,6 +7,12 @@ import org.aksw.limes.core.io.mapping.AMapping;
 
 import java.util.*;
 
+/**
+ *
+ * A util class to load dataset from Limes
+ *
+ * @author Cedric Richter
+ */
 public class LimesDataSetLoader {
 
     public static LearningConfig getData(EvaluationData data, MLConfig ml, TerminateConfig terminateConfig){

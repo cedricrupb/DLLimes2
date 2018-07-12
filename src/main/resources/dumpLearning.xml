@@ -60,11 +60,15 @@
         <NAMESPACE>owl</NAMESPACE>
         <LABEL>http://www.w3.org/2002/07/owl#</LABEL>
     </PREFIX>
+    <PREFIX>
+        <NAMESPACE>prov</NAMESPACE>
+        <LABEL>http://www.w3.org/ns/prov#</LABEL>
+    </PREFIX>
 
 
     <SOURCE>
         <ID>dump</ID>
-        <ENDPOINT>/Users/cedricrichter/IdeaProjects/DLLimes2/src/main/resources/DumpFile-5-7.ttl</ENDPOINT>
+        <ENDPOINT>/Users/cedricrichter/IdeaProjects/DLLimes2/src/main/resources/dumpFile1.nt</ENDPOINT>
         <VAR>?x</VAR>
         <PAGESIZE>10000</PAGESIZE>
         <TYPE>ttl</TYPE>
@@ -72,7 +76,7 @@
     </SOURCE>
     <TARGET>
         <ID>dump</ID>
-        <ENDPOINT>/Users/cedricrichter/IdeaProjects/DLLimes2/src/main/resources/DumpFile-5-7.ttl</ENDPOINT>
+        <ENDPOINT>/Users/cedricrichter/IdeaProjects/DLLimes2/src/main/resources/dumpFile1.nt</ENDPOINT>
         <VAR>?y</VAR>
         <PAGESIZE>10000</PAGESIZE>
         <TYPE>ttl</TYPE>
@@ -158,8 +162,8 @@
 
 
     <TERMINATE>
-        <ITERATION>2</ITERATION>
+        <ITERATION>3</ITERATION>
         <FIXPOINT>TRUE</FIXPOINT>
-        <FILE>/Users/cedricrichter/Documents/DL-LIMES/DLLimes/src/main/resources/config/same_thing.nt</FILE>
+        <FILE>/Users/cedricrichter/Documents/DL-LIMES/DLLimes/src/main/resources/same_thing.nt</FILE>
     </TERMINATE>
 </DLLIMES>

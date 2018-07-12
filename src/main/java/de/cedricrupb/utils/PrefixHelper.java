@@ -95,12 +95,19 @@ public class PrefixHelper {
 
     public static String resolveSinglePrefix(String s, Map<String, String> prefixes){
         String[] split = s.split(":");
-        if(split.length == 2){
+        if(split.length >= 2){
             String prefix = split[0];
+
+            String rest = "";
+
+            for(int i = 1; i < split.length; i++){
+                rest += split[i]+":";
+            }
+            rest = rest.substring(0, rest.length()-1);
 
             if(prefixes.containsKey(prefix)){
                 prefix = prefixes.get(prefix);
-                return prefix + split[1];
+                return prefix + rest;
             }
         }
         return s;

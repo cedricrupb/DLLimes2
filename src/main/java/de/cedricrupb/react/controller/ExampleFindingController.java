@@ -12,6 +12,7 @@ import de.cedricrupb.react.learner.ExampleFinder;
 import de.cedricrupb.utils.AsyncJoiner;
 import de.cedricrupb.utils.KBInfoHelper;
 import org.aksw.limes.core.io.config.KBInfo;
+import org.aksw.limes.core.io.mapping.MappingFactory;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -61,6 +62,15 @@ public class ExampleFindingController {
 
     public void onJoin(LearningConfig config, String sourceRestriction, String targetRestriction,
                        Set<String> sourceProperties, Set<String> targetProperties, Set<Reference> mapping){
+
+        if(sourceRestriction == null || sourceProperties == null || sourceProperties.isEmpty() ||
+                targetRestriction == null || targetProperties == null || targetProperties.isEmpty()){
+            this.ctx.getBus().post(new LimesMappingEvent(
+                    config, MappingFactory.createDefaultMapping()
+            ));
+            return;
+        }
+
 
         KBInfo source = buildInfo(config.getSrcConfig().getInfo(), sourceRestriction, sourceProperties);
         KBInfo target = buildInfo(config.getTargetConfig().getInfo(), targetRestriction, targetProperties);

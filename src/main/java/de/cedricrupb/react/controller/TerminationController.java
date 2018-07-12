@@ -55,6 +55,7 @@ public class TerminationController {
 
 
     public void onFinished(LearningConfig config, AMapping mapping,  QualityReport report){
+        this.ctx.getObjectRecorder().getCurrentEpoch().newEpoch().record("limes-mapping", mapping);
         Set<Reference> references = fromMapping(mapping, config.getSrcConfig().getInfo().getPrefixes());
         if(shouldTerminate(config, references, report)){
             terminate(config, mapping, report);
@@ -63,8 +64,8 @@ public class TerminationController {
         }
     }
 
-    private boolean shouldTerminate(LearningConfig config, Set<Reference> mapping, QualityReport report){
-        ObjectRecorder recorder = this.ctx.getObjectRecorder().getCurrentEpoch().newEpoch();
+    private boolean shouldTerminate(LearningConfig config,  Set<Reference> mapping, QualityReport report){
+        ObjectRecorder recorder = this.ctx.getObjectRecorder().getCurrentEpoch();
 
         QualityReport oldReport = (QualityReport) recorder.getLastEpoch().get("learn.quality");
 
@@ -112,6 +113,18 @@ public class TerminationController {
     }
 
     private void terminate(LearningConfig config, AMapping mapping, QualityReport report){
+
+        for(ObjectRecorder recorder : this.ctx.getObjectRecorder().getEpochs()){
+            if(recorder.get("learn.quality") != null) {
+                QualityReport r = (QualityReport)recorder.get("learn.quality");
+                if(r.getPseudoRecall() - report.getPseudoRecall() > 0.05 ||
+                        (r.getPseudoRecall() >= report.getPseudoRecall() && r.getPseudoFmeasure() > report.getPseudoFmeasure())) {
+                    mapping = (AMapping) recorder.get("limes-mapping");
+                    report = r;
+                }
+            }
+        }
+
         emitMapping(mapping, config.getTerminateConfig().getOutFile());
         emitReport(report, config.getTerminateConfig().getOutFile()+".log");
         this.ctx.getBus().post(new TerminationEvent(

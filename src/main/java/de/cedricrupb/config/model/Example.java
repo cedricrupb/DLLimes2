@@ -31,4 +31,9 @@ public class Example {
         return Objects.hash(uri);
     }
 
+    @Override
+    public String toString(){
+        return uri;
+    }
+
 }

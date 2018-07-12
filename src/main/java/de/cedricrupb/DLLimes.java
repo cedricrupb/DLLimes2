@@ -49,7 +49,7 @@ public class DLLimes {
 
             LimesBasedEvaluator limes = new LimesBasedEvaluator(ctx);
 
-            String[] datasets = {"RESTAURANTS"};
+            String[] datasets = {"PERSON2"};
 
             File f = new File("result.txt");
             PrintWriter writer = new PrintWriter(f);
