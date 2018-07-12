@@ -2,6 +2,14 @@ package de.cedricrupb.config.model;
 
 import java.util.Objects;
 
+/**
+ *
+ * Class to Define and Set Prefixes.
+ *
+ * @author Cedric Richter
+ */
+
+
 public class Prefix {
 
     private String namespace;

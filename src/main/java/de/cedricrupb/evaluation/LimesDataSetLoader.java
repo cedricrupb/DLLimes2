@@ -9,10 +9,13 @@ import java.util.*;
 
 /**
  *
- * A util class to load dataset from Limes
+ * Class to load DataSets from LIMES to describe learning configuration from source, target and GoldStarndard,
+ * depending on these reference of Positive/Negative Examples are generated.
  *
  * @author Cedric Richter
  */
+
+
 public class LimesDataSetLoader {
 
     public static LearningConfig getData(EvaluationData data, MLConfig ml, TerminateConfig terminateConfig){
@@ -54,6 +57,10 @@ public class LimesDataSetLoader {
 
     }
 
+    /**
+     *
+     * @return Source & Target Tuples
+     */
     private static Set<Reference> sampleFromGold(AMapping standard, double relativeSize){
 
         HashMap<String, HashMap<String, Double>> map = standard.getMap();

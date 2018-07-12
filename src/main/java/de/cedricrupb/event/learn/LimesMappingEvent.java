@@ -7,6 +7,13 @@ import org.aksw.limes.core.io.mapping.AMapping;
 
 import java.util.Set;
 
+/**
+ *
+ * Class that activates an LIMES Mapping Event from LearningConfig and AMapping
+ *
+ * @author Cedric Richter
+ */
+
 public class LimesMappingEvent extends ConfigBasedEvent {
 
     private AMapping mapping;

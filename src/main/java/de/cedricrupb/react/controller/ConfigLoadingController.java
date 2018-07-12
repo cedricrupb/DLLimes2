@@ -7,6 +7,14 @@ import de.cedricrupb.event.config.MappingConfigEvent;
 import de.cedricrupb.event.config.SourceInfoEvent;
 import de.cedricrupb.event.config.TargetInfoEvent;
 
+/**
+ *
+ * Class that loads configurations for source, target and mapping.
+ *
+ * @author Cedric Richter
+ */
+
+
 public class ConfigLoadingController {
 
     private ApplicationContext ctx;

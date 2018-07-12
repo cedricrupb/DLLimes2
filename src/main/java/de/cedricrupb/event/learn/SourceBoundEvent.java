@@ -4,6 +4,12 @@ import de.cedricrupb.config.model.LearningConfig;
 import de.cedricrupb.config.model.LearningDomainConfig;
 import de.cedricrupb.event.ConfigBasedEvent;
 
+/**
+ *
+ * Class that activates an SourceBound Event from LearningConfig and LearningDomainConfig
+ *
+ * @author Cedric Richter
+ */
 public abstract class SourceBoundEvent extends ConfigBasedEvent {
 
     private LearningDomainConfig domainConfig;

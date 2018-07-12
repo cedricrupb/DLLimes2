@@ -5,7 +5,7 @@ import de.cedricrupb.config.model.ExampleFactory;
 /**
  *
  * A subclass of the example handler. It handles definition of examples for the source
- * knowledge base.
+ * knowledge base
  *
  * @author Cedric Richter
  */

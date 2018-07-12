@@ -6,6 +6,14 @@ import org.aksw.limes.core.ml.algorithm.MLImplementationType;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ *
+ * Class to set Configuration of MachineLearningAlgorithm.
+ *
+ * @author Cedric Richter
+ */
+
+
 public class MLConfig {
 
     private String mlAlgorithmName = new String();

@@ -22,6 +22,15 @@ import uk.ac.manchester.cs.owl.owlapi.OWLNamedIndividualImpl;
 import java.net.MalformedURLException;
 import java.util.*;
 
+
+/**
+ *
+ * Class that Learns from Classes obtained from SPARQL Endpoints, OWLOntologies etc..
+ *
+ * @author Cedric Richter
+ */
+
+
 public class ClassLearner implements Runnable{
 
     public static final int SPARQL_RECURSION_DEPTH = 1;

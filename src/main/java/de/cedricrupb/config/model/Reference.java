@@ -2,6 +2,14 @@ package de.cedricrupb.config.model;
 
 import java.util.Objects;
 
+/**
+ *
+ * Class to define references from source and target examples.
+ *
+ * @author Cedric Richter
+ */
+
+
 public class Reference {
 
     private Example source;

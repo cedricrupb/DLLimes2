@@ -18,6 +18,14 @@ import de.cedricrupb.react.model.LearnedClass;
 
 import java.util.Set;
 
+/**
+ *
+ * Class that performs learning operations on Classes.
+ *
+ * @author Cedric Richter
+ */
+
+
 public class ClassLearningController {
 
     private ApplicationContext ctx;
@@ -39,6 +47,10 @@ public class ClassLearningController {
         learnClass(event.getConfig(), event.getDomain(), event.getExampleSet());
     }
 
+    /**
+     *
+     * Function that Learns Classes
+     */
 
     public void learnClass(LearningConfig config, LearningDomainConfig domain, Set<Example> examples){
         //long startTime = System.currentTimeMillis();

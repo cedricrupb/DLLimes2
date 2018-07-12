@@ -4,6 +4,15 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+/**
+ *
+ * Class That Returns ExampleSet of Source/Target based on Context
+ * Positive,Negative and Neutral Examples are mapped and URIs are added in this class
+ *
+ * @author Cedric Richter
+ */
+
+
 public class ExampleFactory {
 
     public enum ExampleSource{
@@ -32,6 +41,12 @@ public class ExampleFactory {
         return "source_examples";
     }
 
+    /**
+     *
+     * Create Positive Example.
+     * @return  Positive example
+     */
+
     public PositiveExample createPositive(ExampleSource source, String uri){
         Set<Example> examples = getExamples(getKey(source));
         PositiveExample example = new PositiveExample(uri);
@@ -39,6 +54,11 @@ public class ExampleFactory {
         return example;
     }
 
+     /**
+     *
+     * Create Nagative Example
+     * @return  Negative example
+     */
     public NegativeExample createNegative(ExampleSource source, String uri){
         Set<Example> examples = getExamples(getKey(source));
         NegativeExample example = new NegativeExample(uri);
@@ -46,6 +66,11 @@ public class ExampleFactory {
         return example;
     }
 
+    /**
+     *
+     * Create Neutral Example
+     * @return  Neutral example
+     */
     public Example createNeutral(ExampleSource source, String uri){
         return new Example(uri);
     }

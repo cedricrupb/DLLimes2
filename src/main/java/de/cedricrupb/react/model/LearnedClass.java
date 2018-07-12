@@ -4,6 +4,15 @@ import org.semanticweb.owlapi.model.OWLClassExpression;
 
 import java.util.Objects;
 
+/**
+ *
+ * Class to process a learned Class
+ *
+ * To obtain accuracy, class expression and restriction.
+ *
+ * @author Cedric Richter
+ */
+
 public class LearnedClass {
 
     private OWLClassExpression classExpression;

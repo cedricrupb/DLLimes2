@@ -15,7 +15,7 @@ import java.util.Set;
  *
  * A handler for mapping configuration.
  * Mapping defines a relationship between one instance of the source knowledge base
- * and one instance of the target knowledge base.
+ * and one instance of the target knowledge base
  *
  * @author Cedric Richter
  */

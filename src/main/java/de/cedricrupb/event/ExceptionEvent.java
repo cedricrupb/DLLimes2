@@ -1,5 +1,12 @@
 package de.cedricrupb.event;
 
+/**
+ *
+ * Class that activates an Exception Event in case any exception occurs
+ *
+ * @author Cedric Richter
+ */
+
 public class ExceptionEvent {
 
     public Throwable exception;

@@ -10,6 +10,18 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ *
+ * Class Loads all the Configuartions from Package "Handlers" and adds them to a list
+ *
+ * Brings all the configs from ChildPrefixHandler, PrefixHandler, KBInfoChildHandler, KBInfoHandler, SourceExampleHandler,
+ * TargetExampleHandler , MappingHandler, MLChildHandler, MLHandler, TerminateChildHandler,TerminateHandler,
+ * DLLimesHandler, MappingHandler, SameHandler, SameChildHandler to be used again.
+ *
+ * @author Cedric Richter
+ */
+
+
 public class ConfigurationLoader {
 
     public static ConfigurationLoader createDefault(){
@@ -38,7 +50,12 @@ public class ConfigurationLoader {
         this.handlers = handlers;
     }
 
-
+    /**
+     *
+     * Parse object from XML files
+     *
+     * @return handler on root
+     */
     public Object parseFromXML(String path) throws ParserConfigurationException, SAXException, IOException {
         SAXParserFactory factory = SAXParserFactory.newInstance();
         SAXParser saxParser = factory.newSAXParser();

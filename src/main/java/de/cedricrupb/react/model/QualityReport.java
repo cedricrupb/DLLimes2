@@ -9,6 +9,15 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+/**
+ *
+ * Class to obtain a quality report from a learned Classes from both source and target as well as mappings
+ *
+ * The report gives Precision, Fmeasure and Recall.
+ *
+ * @author Cedric Richter
+ */
+
 public class QualityReport {
 
     private int epoch;

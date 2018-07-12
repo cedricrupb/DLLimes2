@@ -20,6 +20,15 @@ import uk.ac.manchester.cs.owl.owlapi.OWLNamedIndividualImpl;
 
 import java.util.*;
 
+/**
+ *
+ * Class that learns properties from Source Info, Target Info and Mapping
+ * Positive and Negative Properties from both and target can be obtained and learned.
+ *
+ *
+ * @author Cedric Richter
+ */
+
 public class PropertyLearner implements Runnable {
 
     static Logger logger = LoggerFactory.getLogger(ClassLearner.class.getName());

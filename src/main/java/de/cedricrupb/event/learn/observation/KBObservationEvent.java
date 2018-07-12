@@ -1,5 +1,12 @@
 package de.cedricrupb.event.learn.observation;
 
+
+/**
+ *
+ * Class KBObservationEvent creates event by taking KBTypes of Source, Target and ObservationEvents of LearnedClass
+ *
+ * @author Cedric Richter
+ */
 import java.util.Objects;
 
 public class KBObservationEvent<T> {

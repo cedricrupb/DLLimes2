@@ -13,12 +13,24 @@ import java.util.Map;
  */
 public abstract class ExampleHandler implements IConfigHandler {
 
+    /**
+     *
+     * Handles the namespace, label as Negative & Positive examples.
+     * @return  Namespace and Label
+     */
+
     @Override
     public boolean isHandling(String parent, String name) {
         return name.equalsIgnoreCase("POSITIVE-EXAMPLE") ||
                 name.equalsIgnoreCase("NEGATIVE-EXAMPLE");
     }
 
+    /**
+     * Parses the objects
+     *
+     * @return Positive/Negative Examples
+     *
+     */
     @Override
     public Object parse(String parent, String name, Map<String, String> attributes, Map<String, Object> childs, Map<String, Object> parserContext) {
         ExampleFactory factory = new ExampleFactory(parserContext);

@@ -5,6 +5,12 @@ import java.util.IdentityHashMap;
 import java.util.Map;
 import java.util.function.Consumer;
 
+/**
+ *
+ * This class basically is responsible for joining Consumer and Mapping
+ * @author Cedric Richter
+ */
+
 public class AsyncJoiner<T> {
 
     private String[] joinOn;

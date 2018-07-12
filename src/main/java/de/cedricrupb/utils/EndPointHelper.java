@@ -27,6 +27,14 @@ import java.io.File;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
 
+/**
+ *
+ * Class to help resolve endpoints and process CSV file containing the data (instances, properties etc.)
+ *
+ * @author Cedric Richter
+ */
+
+
 public class EndPointHelper {
 
     public static final String CACHE_FOLDER = "cache/";

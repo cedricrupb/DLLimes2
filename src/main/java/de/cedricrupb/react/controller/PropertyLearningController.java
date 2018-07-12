@@ -23,6 +23,15 @@ import org.aksw.limes.core.ml.algorithm.LearningParameter;
 import java.util.Map;
 import java.util.Set;
 
+
+/**
+ *
+ * Class that handles PropertyLearning and joins them on with Source, Target & Mapping.
+ *
+ * @author Cedric Richter
+ */
+
+
 public class PropertyLearningController {
 
     private static final String[] JOIN_ON = new String[]{"source", "target", "mapping"};

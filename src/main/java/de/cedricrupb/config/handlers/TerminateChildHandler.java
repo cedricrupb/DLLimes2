@@ -4,6 +4,15 @@ import de.cedricrupb.config.IConfigHandler;
 
 import java.util.Map;
 
+
+/**
+ *
+ * Class to terminate ChildHandler Operations after a fixpoint/iterations
+ *
+ * @author Cedric Richter
+ */
+
+
 public class TerminateChildHandler implements IConfigHandler {
 
     @Override

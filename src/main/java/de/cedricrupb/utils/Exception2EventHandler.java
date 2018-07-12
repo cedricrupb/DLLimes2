@@ -6,6 +6,13 @@ import de.cedricrupb.event.ExceptionEvent;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+/**
+ *
+ * This class handles any exception and throws an exception event.
+ * @author Cedric Richter
+ */
+
+
 public class Exception2EventHandler implements SubscriberExceptionHandler {
 
     static Log log = LogFactory.getLog("Exception");

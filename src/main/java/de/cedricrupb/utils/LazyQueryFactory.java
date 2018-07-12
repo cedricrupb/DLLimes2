@@ -5,6 +5,14 @@ import org.aksw.limes.core.io.config.KBInfo;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ *
+ * Base Class for LazyQuery sets, creates, registers/de-registers the QueryDescription.
+ *
+ * @author Cedric Richter
+ */
+
+
 public class LazyQueryFactory {
 
     private Set<ResultDescription> closeable = new HashSet<>();

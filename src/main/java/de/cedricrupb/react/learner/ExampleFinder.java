@@ -20,6 +20,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+/**
+ *
+ * Class that finds Examples, uses KBSourceInfo, KBTargetInfo, MLConfig and set of References.
+ *
+ * @author Cedric Richter
+ */
+
 public class ExampleFinder implements Runnable {
 
     static Logger logger = LoggerFactory.getLogger(ClassLearner.class.getName());

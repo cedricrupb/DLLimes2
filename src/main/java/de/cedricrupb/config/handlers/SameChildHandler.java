@@ -6,7 +6,7 @@ import java.util.Map;
 
 /**
  *
- * A handler for children of the sameAs reference configuration in DOM tree.
+ * A handler for children of the sameAs reference configuration in DOM tree
  *
  * @author Cedric Richter
  */
