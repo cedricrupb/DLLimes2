@@ -11,8 +11,20 @@ import org.semanticweb.owlapi.model.OWLIndividual;
 
 import java.util.*;
 
+/**
+ *
+ * A handler class which supports general operations performed on the example sets
+ *
+ * @author Cedric Richter
+ */
 public class ExampleHandler {
 
+    /**
+     * Init the example handler
+     * @param info info to load resources from
+     * @param base current state of examples
+     * @return an base example handler
+     */
     public static ExampleHandler init(KBInfo info, Set<Example> base){
         return new ExampleHandler(info, base);
     }
@@ -35,7 +47,12 @@ public class ExampleHandler {
         this.operations.add(operation);
     }
 
-
+    /**
+     * Infers positive examples from the current restriction. Assumes that every
+     * example which fit the restriction is positive.
+     * @param restriction a restriction for select
+     * @return
+     */
     public ExampleHandler inferPositive(List<String> restriction){
         return new ExampleHandler(this, new PositiveInferOperation(restriction));
     }

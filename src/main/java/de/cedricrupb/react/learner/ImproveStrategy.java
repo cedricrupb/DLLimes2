@@ -5,6 +5,11 @@ import de.cedricrupb.react.model.QualityReport;
 
 import java.util.Set;
 
+/**
+ * Implements a strategy to seed either negative or positive examples
+ *
+ * @author Cedric Richter
+ */
 public class ImproveStrategy {
 
     private double learningRate = 0.01;

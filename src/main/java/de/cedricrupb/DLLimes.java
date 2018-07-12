@@ -49,54 +49,17 @@ public class DLLimes {
                 new Exception2EventHandler()
         ));
 
-        if(true) {
-            String configPath = "/Users/cedricrichter/IdeaProjects/DLLimes2/src/main/resources/dumpLearning.xml";
-
-            ConfigurationLoader loader = ConfigurationLoader.createDefault();
-            LearningConfig config = (LearningConfig) loader.parseFromXML(configPath);
-
-            ctx.getBus().post(new ConfigLoadingEvent(config));
-        }else {
-
-            LimesBasedEvaluator limes = new LimesBasedEvaluator(ctx);
-
-            String[] datasets = {"PERSON2"};
-
-            File f = new File("result.txt");
-            PrintWriter writer = new PrintWriter(f);
-            try {
-                for (String d : datasets) {
-                    EvaluationData dataset = DataSetChooser2.instance().getData(d);
-                    Future<AMapping> future = limes.processDataSet(
-                            dataset
-                    );
-                    logger.info(String.format("Evaluate dataset %s.", dataset.getName()));
-
-                    AMapping mapping = future.get();
-
-                    GoldStandard standard = new GoldStandard(dataset.getReferenceMapping(),
-                            dataset.getSourceCache().getAllUris(),
-                            dataset.getTargetCache().getAllUris());
-
-                    QualitativeMeasuresEvaluator evaluator = new QualitativeMeasuresEvaluator();
-
-                    Set<EvaluatorType> evalTypes = new HashSet<>();
-                    evalTypes.add(EvaluatorType.ACCURACY);
-                    evalTypes.add(EvaluatorType.PRECISION);
-                    evalTypes.add(EvaluatorType.RECALL);
-                    evalTypes.add(EvaluatorType.F_MEASURE);
-
-                    Map<EvaluatorType, Double> quality = evaluator.evaluate(mapping, standard, evalTypes);
-
-                    writer.println(d + ":");
-                    for (Map.Entry<EvaluatorType, Double> e : quality.entrySet()) {
-                        writer.println(String.format("\t%s: %f", e.getKey().name(), e.getValue()));
-                    }
-                }
-            }finally{
-                writer.close();
-            }
+        if(args.length < 1){
+            System.out.println("A config file is needed to run the code");
+            System.exit(0);
         }
+
+        String configPath = args[0];
+
+        ConfigurationLoader loader = ConfigurationLoader.createDefault();
+        LearningConfig config = (LearningConfig) loader.parseFromXML(configPath);
+
+        ctx.getBus().post(new ConfigLoadingEvent(config));
 
     }
 
