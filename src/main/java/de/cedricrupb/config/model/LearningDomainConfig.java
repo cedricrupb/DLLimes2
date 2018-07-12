@@ -5,6 +5,14 @@ import org.aksw.limes.core.io.config.KBInfo;
 import java.util.Objects;
 import java.util.Set;
 
+/**
+ *
+ * Class to Learn the Configuration from Domain from KBInfo and Examples
+ *
+ * @author Cedric Richter
+ */
+
+
 public class LearningDomainConfig {
 
     private KBInfo info;

@@ -22,6 +22,18 @@ import java.io.PrintWriter;
 import java.text.NumberFormat;
 import java.util.*;
 
+
+/**
+ *
+ * Class that triggers termination control
+ * Learning and Joining has to terminate the process at a certain point else it would continue forever,
+ * so termination is important when needed based on some conditions,
+ * One can define when it should terminate here.
+ *
+ * @author Cedric Richter
+ */
+
+
 public class TerminationController {
 
     private static final double epsilon = 0.01;
@@ -122,7 +134,10 @@ public class TerminationController {
     private void continueExec(LearningConfig config, Set<Reference> mapping){
         this.ctx.getBus().post(new ContinuedExecutionEvent(config, mapping));
     }
-
+    /**
+     *
+     * @return QualityReport
+     */
     private void emitReport(QualityReport report, String path){
 
         try {
@@ -169,7 +184,10 @@ public class TerminationController {
 
     }
 
-
+    /**
+     *
+     * Sets predicates and Writes Mapping
+     */
     private void emitMapping(AMapping mapping, String path){
 
         mapping.setPredicate("http://www.w3.org/2002/07/owl#sameAs");
@@ -183,7 +201,10 @@ public class TerminationController {
         }
     }
 
-
+    /**
+     *
+     * @return Refernces from Mapping
+     */
     private Set<Reference> fromMapping(AMapping mapping, Map<String, String> prefix){
         ExampleFactory factory = new ExampleFactory(new HashMap<>());
 

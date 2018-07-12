@@ -2,6 +2,14 @@ package de.cedricrupb.config.model;
 
 import java.util.Objects;
 
+/**
+ *
+ * A Class to Create Example from URIs
+ *
+ * @author Cedric Richter
+ */
+
+
 public class Example {
 
     private String uri;

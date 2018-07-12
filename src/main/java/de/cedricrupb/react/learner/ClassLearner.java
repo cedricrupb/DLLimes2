@@ -37,6 +37,15 @@ import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+
+/**
+ *
+ * Class that Learns from Classes obtained from SPARQL Endpoints, OWLOntologies etc.
+ *
+ * @author Cedric Richter
+ */
+
+
 public class ClassLearner implements Runnable{
 
     public static final int SPARQL_RECURSION_DEPTH = 1;

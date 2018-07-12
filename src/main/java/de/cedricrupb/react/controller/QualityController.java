@@ -18,6 +18,15 @@ import org.apache.commons.logging.LogFactory;
 
 import java.text.NumberFormat;
 
+
+/**
+ *
+ * Class that records Quality from source, target and records these observationsto report
+ *
+ * @author Cedric Richter
+ */
+
+
 public class QualityController {
 
     static Log log = LogFactory.getLog(QualityController.class);

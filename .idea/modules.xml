@@ -3,6 +3,9 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/DLLimes2.iml" filepath="$PROJECT_DIR$/.idea/DLLimes2.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../LIMES/limes-core/limes-core.iml" filepath="$PROJECT_DIR$/../LIMES/limes-core/limes-core.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../LIMES/limes-full.iml" filepath="$PROJECT_DIR$/../LIMES/limes-full.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../LIMES/limes-gui/limes-gui.iml" filepath="$PROJECT_DIR$/../LIMES/limes-gui/limes-gui.iml" />
     </modules>
   </component>
 </project>

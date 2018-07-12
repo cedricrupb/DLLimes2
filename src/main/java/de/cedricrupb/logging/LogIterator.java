@@ -7,6 +7,13 @@ import java.text.NumberFormat;
 import java.util.Iterator;
 import java.util.function.Function;
 
+/**
+ *
+ * Class that iterates logger to keep it running at every iteration
+ *
+ * @author Cedric Richter
+ */
+
 public class LogIterator<T> implements Iterator<T> {
 
     private Log logger;

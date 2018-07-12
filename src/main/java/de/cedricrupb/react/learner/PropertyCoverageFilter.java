@@ -14,6 +14,14 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+/**
+ *
+ * Class that filters property coverage by creating restriction based on the usage and learning purpose
+ *
+ *
+ * @author Cedric Richter
+ */
+
 public class PropertyCoverageFilter implements Runnable {
 
     static Log log = LogFactory.getLog(PropertyCoverageFilter.class);

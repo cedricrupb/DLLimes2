@@ -24,7 +24,11 @@ public class MLChildHandler implements IConfigHandler {
                         name.equalsIgnoreCase("PARAMETER")
                 );
     }
-
+    /**
+     *
+     * Parses the object to learning parameter
+     * @return child
+     */
     @Override
     public Object parse(String parent, String name, Map<String, String> attributes, Map<String, Object> childs, Map<String, Object> parserContext) {
         if(name.equalsIgnoreCase("PARAMETER")){

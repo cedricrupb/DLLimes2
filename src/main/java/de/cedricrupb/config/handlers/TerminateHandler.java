@@ -5,6 +5,14 @@ import de.cedricrupb.config.model.TerminateConfig;
 
 import java.util.Map;
 
+/**
+ *
+ * Class to terminate Handler Class after a fixpoint/iterations.
+ *
+ * @author Cedric Richter
+ */
+
+
 public class TerminateHandler implements IConfigHandler {
 
     @Override

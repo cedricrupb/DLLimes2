@@ -7,6 +7,13 @@ import de.cedricrupb.event.ConfigBasedEvent;
 
 import java.util.Set;
 
+/**
+ *
+ * Class that activates an ExampleExpansion Event from LearningConfig, LearningDomainConfig and ExampleSet
+ *
+ * @author Cedric Richter
+ */
+
 public class ExampleExpansionEvent extends ConfigBasedEvent {
 
     private LearningDomainConfig domain;

@@ -17,6 +17,14 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
+/**
+ *
+ * Class that finds examples and joins them on with Source & Target Property, Source & Target Restriction & Mapping
+ *
+ * @author Cedric Richter
+ */
+
+
 public class ExampleFindingController {
 
     private static final String[] JOIN_ON = new String[]{"source_restriction", "target_restriction", "mapping",

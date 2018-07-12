@@ -5,6 +5,14 @@ import de.cedricrupb.event.ConfigBasedEvent;
 
 import java.util.Set;
 
+
+/**
+ *
+ * Class that activates an MatchedProperty Event from LearningConfig, sourceProperties and TargetProperties
+ *
+ * @author Cedric Richter
+ */
+
 public class MatchedPropertyEvent extends ConfigBasedEvent {
 
     private Set<String> sourceProperties;

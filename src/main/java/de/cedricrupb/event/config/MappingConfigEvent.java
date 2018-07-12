@@ -6,6 +6,13 @@ import de.cedricrupb.event.ConfigBasedEvent;
 
 import java.util.Set;
 
+/**
+ *
+ * Class MappingConfigEvent creates a MappingConfig Event based on Mapping
+ *
+ * @author Cedric Richter
+ */
+
 public class MappingConfigEvent extends ConfigBasedEvent {
 
     private Set<Reference> mapping;

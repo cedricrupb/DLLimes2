@@ -12,6 +12,14 @@ import org.apache.jena.rdf.model.Resource;
 
 import java.util.*;
 
+/**
+ *
+ * Class that finds Examples, Expands them from Restrictions, ValidatedExamples and PossibleExamples
+ *
+ *
+ * @author Cedric Richter
+ */
+
 public class ExampleExpander {
 
     private KBInfo info;

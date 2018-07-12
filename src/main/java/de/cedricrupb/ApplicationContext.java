@@ -5,6 +5,15 @@ import de.cedricrupb.react.controller.*;
 import de.cedricrupb.utils.ObjectRecorder;
 import de.cedricrupb.utils.ObjectRecorderManager;
 
+
+/**
+ *
+ * Class determines Application Context, records objects and gives context based on Controllers
+ *
+ * @author Cedric Richter
+ */
+
+
 public class ApplicationContext {
 
     public static ApplicationContext createDefault(EventBus bus){

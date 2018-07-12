@@ -6,6 +6,13 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.function.Function;
 
+/**
+ *
+ * Class that records and logs every iteration
+ *
+ * @author Cedric Richter
+ */
+
 public class IteratedLog {
 
     private static final String DEFAULT_NAME = "Iterate";

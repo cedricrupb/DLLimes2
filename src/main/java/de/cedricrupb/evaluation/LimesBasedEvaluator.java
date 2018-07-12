@@ -20,6 +20,13 @@ import java.util.concurrent.Callable;
 import java.util.concurrent.Future;
 import java.util.concurrent.FutureTask;
 
+/**
+ *
+ * Class that bases on LIMES logic/functionality to Evaluate
+ *
+ * @author Cedric Richter
+ */
+
 public class LimesBasedEvaluator {
 
     private ApplicationContext ctx;
@@ -58,7 +65,10 @@ public class LimesBasedEvaluator {
 
         return null;
     }
-
+    /**
+     *
+     * Calls termination event
+     */
     @Subscribe
     public void onTermination(TerminationEvent event){
         if(callback.containsKey(event.getConfig())){
@@ -70,6 +80,10 @@ public class LimesBasedEvaluator {
         }
     }
 
+    /**
+     *
+     * Calls exception event
+     */
     @Subscribe
     public void onException(ExceptionEvent event){
         interuppt = true;

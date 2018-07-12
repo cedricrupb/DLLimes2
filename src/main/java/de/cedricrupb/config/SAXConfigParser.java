@@ -7,6 +7,15 @@ import org.xml.sax.helpers.DefaultHandler;
 
 import java.util.*;
 
+
+/**
+ *
+ * Class SAXConfigParser creates a config based on StartElement, EndElement, Root and SAXContext
+ *
+ * @author Cedric Richter
+ */
+
+
 public class SAXConfigParser extends DefaultHandler {
 
     private List<IConfigHandler> handlers;

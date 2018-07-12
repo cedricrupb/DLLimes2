@@ -4,6 +4,14 @@ import de.cedricrupb.config.model.LearningConfig;
 import de.cedricrupb.config.model.LearningDomainConfig;
 import de.cedricrupb.event.ConfigBasedEvent;
 
+/**
+ *
+ * Class KBinfoEvent creates a KBInfo Event based on LearningDomainConfig
+ *
+ * @author Cedric Richter
+ */
+
+
 public class KBInfoEvent extends ConfigBasedEvent {
 
     private LearningDomainConfig domain;

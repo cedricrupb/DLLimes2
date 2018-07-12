@@ -5,6 +5,14 @@ import com.google.common.collect.ImmutableSet;
 import java.util.Objects;
 import java.util.Set;
 
+/**
+ *
+ * Class to Describe the Configuartion for Learning Purpose
+ *
+ * @author Cedric Richter
+ */
+
+
 public class LearningConfig {
 
     private SourceDomainConfig srcConfig;
@@ -20,23 +28,42 @@ public class LearningConfig {
         this.mlConfig = mlConfig;
         this.terminateConfig = terminateConfig;
     }
-
+    /**
+     *
+     * @return source configuration
+     */
     public SourceDomainConfig getSrcConfig() {
         return srcConfig;
     }
 
+    /**
+     *
+     * @return target configuration
+     */
     public TargetDomainConfig getTargetConfig() {
         return targetConfig;
     }
 
+    /**
+     *
+     * @return mapping
+     */
     public Set<Reference> getMapping() {
         return mapping;
     }
 
+    /**
+     *
+     * @return machine learning configuration
+     */
     public MLConfig getMlConfig() {
         return mlConfig;
     }
 
+    /**
+     *
+     * @return termination configuration
+     */
     public TerminateConfig getTerminateConfig() {
         return terminateConfig;
     }
