@@ -24,7 +24,7 @@ public class ApplicationContext {
         bus.register(new ExampleFindingController(ctx));
         bus.register(new QualityController(ctx));
         bus.register(new TerminationController(ctx));
-        bus.register(new ExampleExpansionController(ctx));
+        //bus.register(new ExampleExpansionController(ctx));
         return ctx;
     }
 
